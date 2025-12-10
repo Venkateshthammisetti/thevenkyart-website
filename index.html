@@ -1,13 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Thevenkyart website
+    </title>
 </head>
 <link rel="stylesheet" href="css/style.css">
 <script src="js/main.js"></script>
+
 <body>
+    <nav class="navbar">
+        <a href="#home" class="logo">
+            <img src="assets/images/Logo va white.png" alt="Thevenkyart Logo">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#classes">Academy</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
     
+    <div class="slider-container">
+        <div class="slide active" style="background-image: url('assets/images/hero-bg.JPEG');"></div>
+        <div class="slide" style="background-image: url('assets/images/hero-2.jpeg');"></div>
+        <div class="slide" style="background-image: url('assets/images/hero-3.JPEG');"></div>
+    </div>
+
+    <div class="hero-overlay"></div> <div class="hero-content">
+        <h1>Unleash Your Inner <span class="highlight">Artist</span></h1>
+        <p>
+            Welcome to <strong>Thevenkyart</strong>. I am an artist and educator passionate about 
+            teaching students online and creating immersive visual experiences.
+        </p>
+        
+        <div class="cta-container">
+            <a href="#classes" class="btn btn-primary">Join My Classes</a>
+            <a href="#portfolio" class="btn btn-secondary">View My Art</a>
+        </div>
+    </div>
+</section>
+<section id="classes" class="section-padding">
+    <div class="container">
+        <h2 class="section-title">My Art <span class="highlight">Classes</span></h2>
+        <p class="section-subtitle">Join us to master the skills of sketching, painting, and digital art.</p>
+        
+        <div class="class-grid">
+            
+            <div class="class-card">
+                <div class="card-image" style="background-image: url('https://picsum.photos/id/100/500/300');"></div>
+                <div class="card-content">
+                    <h3>Beginner Sketching</h3>
+                    <p>Learn the fundamentals of lines, shading, and perspective. Perfect for absolute beginners.</p>
+                    <ul class="class-details">
+                        <li><span>&#128339;</span> 4 Weeks</li>
+                        <li><span>&#128100;</span> Ages 8-15</li>
+                    </ul>
+                    <a href="#contact" class="btn-card">Enroll Now</a>
+                </div>
+            </div>
+
+            <div class="class-card">
+                <div class="card-image" style="background-image: url('https://picsum.photos/id/1015/500/300');"></div>
+                <div class="card-content">
+                    <h3>Watercolor Mastery</h3>
+                    <p>Explore color theory and advanced watercolor techniques to bring your imagination to life.</p>
+                    <ul class="class-details">
+                        <li><span>&#128339;</span> 8 Weeks</li>
+                        <li><span>&#128100;</span> Adults & Teens</li>
+                    </ul>
+                    <a href="#contact" class="btn-card">Enroll Now</a>
+                </div>
+            </div>
+
+            <div class="class-card">
+                <div class="card-image" style="background-image: url('https://picsum.photos/id/1062/500/300');"></div>
+                <div class="card-content">
+                    <h3>Digital Art & Design</h3>
+                    <p>Transition from paper to screen using tablets. Learn industry-standard tools.</p>
+                    <ul class="class-details">
+                        <li><span>&#128339;</span> 6 Weeks</li>
+                        <li><span>&#128100;</span> Ages 12+</li>
+                    </ul>
+                    <a href="#contact" class="btn-card">Enroll Now</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section id="portfolio" class="section-padding">
+    <div class="container">
+        <h2 class="section-title">My <span class="highlight">Portfolio</span></h2>
+        <p class="section-subtitle">A collection of my recent artwork. Click the buttons below to filter.</p>
+
+        <div class="portfolio-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="pencil">Pencil</button>
+            <button class="filter-btn" data-filter="watercolor">Watercolor</button>
+            <button class="filter-btn" data-filter="digital">Digital</button>
+        </div>
+
+        <div class="portfolio-grid">
+            
+            <div class="portfolio-item" data-category="pencil">
+                <img src="https://picsum.photos/id/103/400/400" alt="Pencil Sketch">
+                <div class="portfolio-overlay">
+                    <h3>Portrait Study</h3>
+                    <p>Charcoal on Paper</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="watercolor">
+                <img src="https://picsum.photos/id/1041/400/400" alt="Watercolor Nature">
+                <div class="portfolio-overlay">
+                    <h3>Morning Dew</h3>
+                    <p>Watercolor Landscape</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="digital">
+                <img src="https://picsum.photos/id/106/400/400" alt="Digital Abstract">
+                <div class="portfolio-overlay">
+                    <h3>Neon Dreams</h3>
+                    <p>Procreate Illustration</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="pencil">
+                <img src="https://picsum.photos/id/1074/400/400" alt="Pencil Animal">
+                <div class="portfolio-overlay">
+                    <h3>Lion Sketch</h3>
+                    <p>Graphite Pencils</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="watercolor">
+                <img src="https://picsum.photos/id/1016/400/400" alt="Watercolor Mountains">
+                <div class="portfolio-overlay">
+                    <h3>High Peaks</h3>
+                    <p>Watercolor on Cold Press</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="digital">
+                <img src="https://picsum.photos/id/1069/400/400" alt="Digital Character">
+                <div class="portfolio-overlay">
+                    <h3>Sci-Fi Character</h3>
+                    <p>Photoshop Render</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section id="contact" class="section-padding contact-section">
+    <div class="container">
+        <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
+        <p class="section-subtitle">Have a question about a class or want to commission an artwork? Drop me a message!</p>
+        
+        <div class="contact-wrapper">
+            
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>Feel free to reach out for collaborations or class inquiries.</p>
+                
+                <div class="info-item">
+                    <span class="icon">&#9993;</span> <p>contact@thevenkyart.com</p>
+                </div>
+                
+                <div class="info-item">
+                    <span class="icon">&#128205;</span> <p>Online / Hyderabad, India</p>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="social-icon">IG</a>
+                    <a href="#" class="social-icon">YT</a>
+                    <a href="#" class="social-icon">LI</a>
+                </div>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Thevenkyart. Designed & Built by You.</p>
+</footer>
 </body>
+
 </html>
