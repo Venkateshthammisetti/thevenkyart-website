@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Thevenkyart</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="assets/images/Logo/Logo va white.png" alt="Thevenkyart Logo">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html" class="active">Portfolio</a></li>
+            <li><a href="index.html#classes">Academy</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <header class="section-padding" style="padding-top: 120px; text-align: center; background: #f1f5f9;">
+        <h1 class="section-title">My Art <span class="highlight">Gallery</span></h1>
+        <p class="section-subtitle">A collection of my sketches, paintings, and digital works.</p>
+        
+        <div class="portfolio-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="pencil">Pencil</button>
+            <button class="filter-btn" data-filter="colorpencil">Color Pencil</button>
+            <button class="filter-btn" data-filter="painting">Painting</button>
+            <button class="filter-btn" data-filter="digital">Digital</button>
+        </div>
+    </header>
+
+    <section class="section-padding" style="background: white;">
+        <div class="container">
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="pencil">
+                    <img src="assets/images/portfolio/lion-sketch.jpg" alt="Lion">
+                    <div class="portfolio-overlay"><h3>Lion</h3></div>
+                </div>
+                <div class="portfolio-item" data-category="colorpencil">
+                    <img src="assets/images/portfolio/morning-dew.jpg" alt="Dew">
+                    <div class="portfolio-overlay"><h3>Morning Dew</h3></div>
+                </div>
+                <div class="portfolio-item" data-category="digital">
+                    <img src="assets/images/portfolio/digital-neon.jpg" alt="Neon">
+                    <div class="portfolio-overlay"><h3>Neon</h3></div>
+                </div>
+                <div class="portfolio-item" data-category="pencil"><img src="https://picsum.photos/id/101/300/300" alt="Art"><div class="portfolio-overlay"><h3>Sketch</h3></div></div>
+                <div class="portfolio-item" data-category="colorpencil"><img src="https://picsum.photos/id/102/300/300" alt="Art"><div class="portfolio-overlay"><h3>Paint</h3></div></div>
+                <div class="portfolio-item" data-category="digital"><img src="https://picsum.photos/id/103/300/300" alt="Art"><div class="portfolio-overlay"><h3>Digital</h3></div></div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        
+        <img src="" alt="Gallery Preview" class="lightbox-content" id="lightboxImg">
+        
+        <span class="lightbox-prev" id="lightboxPrev">&#10094;</span>
+        <span class="lightbox-next" id="lightboxNext">&#10095;</span>
+    </div>
+
+    <footer><p>&copy; 2025 Thevenkyart.</p></footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
