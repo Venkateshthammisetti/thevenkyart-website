@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thevenkyart | Art Academy & Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -31,6 +35,8 @@
             <div class="slide slide-3"></div>
             <div class="slide slide-4"></div>
             <div class="slide slide-5"></div>
+            <div class="slide slide-6"></div>
+
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -54,19 +60,23 @@
                     </div>
                 </div>
                 <div class="about-content">
-                    <h2 class="section-title" style="text-align: left;">About <span class="highlight">Thevenkyart</span></h2>
-                    <p class="intro-text">"Art is not just about what you see, but what you make others see."</p>
-                    <p>Hello! I am <strong>Venky</strong>, a professional artist and software engineer based in Hyderabad.</p>
-                    <div class="about-stats">
-                        <div class="stat-item"><strong>20+</strong><span>Students</span></div>
-                        <div class="stat-item"><strong>20+</strong><span>Projects</span></div>
-                        <div class="stat-item"><strong>3</strong><span>Mediums</span></div>
-                    </div>
-                    <div class="btn-container" style="display: flex; gap: 15px; margin-top: 20px;">
+    <h2 class="section-title" style="text-align: left; margin-bottom: 5px;">About <span class="highlight">Thevenkyart</span></h2>
+    
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: var(--primary-color); margin-bottom: 25px; line-height: 1.4;">
+        "Art is the code of the human soul."
+    </p>
+
+    <p style="font-family: 'Inter', sans-serif; font-size: 1rem; color: #475569; line-height: 1.8; font-weight: 300;">
+        Venky represents the modern renaissance—a masterful blend of a <strong>Software Engineer’s intellect</strong> and an <strong>Artist’s intuition</strong>. Known for his versatility across mediums, he creates portraits and abstract works that balance structural precision with emotional depth.
+    </p>
+    <p style="font-family: 'Inter', sans-serif; font-size: 1rem; color: #475569; line-height: 1.8; font-weight: 300; margin-top: 15px;">
+        His art career was born not from tradition, but from a relentless curiosity to learn new artforms. Recognizing that creativity is a skill that can be engineered, Venky established <strong>Thevenkyart Academy</strong> to demystify the artistic process, helping students transform from novices to creators.
+    </p>
+    <div class="btn-container" style="display: flex; gap: 15px; margin-top: 20px;">
                         <a href="https://wa.me/919963613404?text=Hi%20Venky,%20We%20want%20to%20connect%20for%20a%20demo%20class" class="btn btn-primary">Book Free Demo class</a>
                         <a href="about.html" class="btn btn-outline">Read My Story</a>
                     </div>
-                </div>
+</div>
             </div>
         </div>
     </section>
@@ -76,11 +86,13 @@
             <h2 class="section-title">My <span class="highlight">Portfolio</span></h2>
             <p class="section-subtitle">Explore my latest sketches, paintings, and more art.</p>
             <div class="portfolio-grid" style="margin-bottom: 40px;">
-                <div class="portfolio-item"><img src="assets/images/portfolio/lion-sketch.jpg" alt="Art 1"></div>
-                <div class="portfolio-item"><img src="assets/images/portfolio/morning-dew.jpg" alt="Art 2"></div>
-                <div class="portfolio-item"><img src="assets/images/portfolio/digital-neon.jpg" alt="Art 3"></div>
-                <div class="portfolio-item"><img src="https://picsum.photos/id/1025/300/300" alt="Art 4"></div>
-                <div class="portfolio-item"><img src="https://picsum.photos/id/1026/300/300" alt="Art 5"></div>
+                <div class="portfolio-item"><img src="assets/images/artworks/drawings/face-charcoal.PNG" alt="Art 1"></div>
+                <div class="portfolio-item"><img src="assets/images/artworks/paitings/lord-venkatesha.jpeg" alt="Art 2"></div>
+                <div class="portfolio-item"><img src="assets/images/artworks/paitings/candle-hands.jpeg" alt="Art 3"></div>
+                <div class="portfolio-item"><img src="assets/images/artworks/drawings/virat.jpeg" alt="Art 4"></div>
+                <div class="portfolio-item"><img src="assets/images/artworks/paitings/radha-krishna.jpeg" alt="5"></div>
+                <div class="portfolio-item"><img src="assets/images/artworks/Color pencil/couple-1.jpg" alt="6"></div>
+
             </div>
             <a href="gallery.html" class="btn btn-primary">View Full Gallery</a>
         </div>
@@ -128,7 +140,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 40px;">
-            <a href="#contact" class="btn btn-primary">Join Them Today</a>
+            <a href="students.html" class="btn btn-primary">Students art works</a>
         </div>
     </div>
 </section>
@@ -250,19 +262,36 @@
             <div class="contact-wrapper">
                 <div class="contact-info">
                     <h3>Contact Information</h3>
-                    <div class="info-item"><span class="icon">&#9993;</span><p>contact@thevenkyart.com</p></div>
-                    <div class="info-item"><span class="icon">&#128205;</span><p>Hyderabad, India</p></div>
+                    <div class="info-item"><span class="icon">&#9993;</span>
+                        <p>contact@thevenkyart.com</p>
+                    </div>
+                    <div class="info-item"><span class="icon">&#128205;</span>
+                        <p>Hyderabad, India</p>
+                    </div>
                 </div>
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group"><input type="text" id="name" placeholder="Your Name" required></div>
-                    <div class="form-group"><input type="email" id="email" placeholder="Your Email" required></div>
-                    <div class="form-group"><textarea id="message" rows="5" placeholder="Your Message" required></textarea></div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
-            </div>
-        </div>
+                <form class="contact-form" action="https://formspree.io/f/mrbnowgp" method="POST">
+    <input type="hidden" name="_next" value="success.html">
+    
+    <input type="text" name="_gotcha" style="display:none">
+    
+    <div class="form-group">
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+    </div>
+    
+    <div class="form-group">
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+    </div>
+    
+    <div class="form-group">
+        <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+    </div>
+    </div>
     </section>
-
+    
     <a href="https://wa.me/919963613404?text=Hi%20Thevenkyart" class="whatsapp-float" target="_blank">
         <img src="assets/images/Logo/whatsapp-icon.webp" alt="WhatsApp">
     </a>
