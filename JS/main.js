@@ -135,28 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 5. CONTACT FORM
-    // ==========================================
-    const contactForm = document.getElementById('contactForm');
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const submitBtn = contactForm.querySelector('button');
-            const originalText = submitBtn.innerText;
-            
-            submitBtn.innerText = 'Sending...';
-
-            setTimeout(() => {
-                alert(`Thanks ${name}! Your message has been sent (Simulated).`);
-                contactForm.reset();
-                submitBtn.innerText = originalText;
-            }, 1500);
-        });
-    }
-
-    // ==========================================
     // 6. TESTIMONIAL CAROUSEL LOGIC
     // ==========================================
     const track = document.getElementById('testimonialTrack');

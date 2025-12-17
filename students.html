@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Gallery | Thevenkyart</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="assets/images/Logo/Logo va white.png" alt="Thevenkyart Logo">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html">Portfolio</a></li>
+            <li><a href="index.html#classes">Academy</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <header class="section-padding" style="padding-top: 120px; background: #f1f5f9; text-align: center;">
+        <h1 class="section-title">Student <span class="highlight">Gallery</span></h1>
+        <p class="section-subtitle">A showcase of the amazing progress made by my students.</p>
+    </header>
+
+    <section class="section-padding" style="background: white;">
+        <div class="container">
+            
+            <div class="student-grid">
+                
+                <div class="student-card">
+                    <img src="assets/images/Students/rohan-art.jpg" alt="Student Work">
+                    <div class="student-info">
+                        <h4>Rohan, Age 12</h4>
+                        <p>Pencil Sketching Course</p>
+                    </div>
+                </div>
+
+                <div class="student-card">
+                    <img src="https://picsum.photos/id/1025/400/400" alt="Student Work">
+                    <div class="student-info">
+                        <h4>Priya, Age 24</h4>
+                        <p>Watercolor Mastery</p>
+                    </div>
+                </div>
+
+                <div class="student-card">
+                    <img src="https://picsum.photos/id/1040/400/600" alt="Student Work">
+                    <div class="student-info">
+                        <h4>Arjun, Age 15</h4>
+                        <p>Digital Art (Procreate)</p>
+                    </div>
+                </div>
+
+                <div class="student-card">
+                    <img src="https://picsum.photos/id/106/400/400" alt="Student Work">
+                    <div class="student-info">
+                        <h4>Sneha, Age 10</h4>
+                        <p>Beginner Drawing</p>
+                    </div>
+                </div>
+
+                <div class="student-card">
+                    <img src="https://picsum.photos/id/200/400/400" alt="Student Work">
+                    <div class="student-info">
+                        <h4>Vikram, Age 30</h4>
+                        <p>Advanced Oil Painting</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div style="text-align: center; margin-top: 60px;">
+                <p style="margin-bottom: 20px;">Want to see your art here?</p>
+                <a href="index.html#classes" class="btn btn-primary">Join a Class</a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Thevenkyart. Designed & Built by You.</p>
+    </footer>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <span class="lightbox-prev" id="lightboxPrev">&#10094;</span>
+        <img src="" alt="Gallery Preview" class="lightbox-content" id="lightboxImg">
+        <span class="lightbox-next" id="lightboxNext">&#10095;</span>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
