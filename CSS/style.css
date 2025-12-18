@@ -160,7 +160,7 @@ h2, h3 { font-weight: 600; }
 .about-content p { margin-bottom: 20px; color: #666; }
 
 .about-image, .about-image1 { 
-    flex: 1; position: relative; display: flex; justify-content: center; 
+    flex: 1; position: relative; display: flex; justify-content: center; margin-bottom: 2rem; 
 }
 
 /* General About Image Style */
