@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile | Thevenkyart</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="assets/images/Logo/Logo va white.png" alt="Logo">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="students.html">Back to Gallery</a></li>
+        </ul>
+    </nav>
+
+    <header class="section-padding" style="padding-top: 120px; background: #f1f5f9; text-align: center;">
+        <h1 class="section-title" id="studentName">Loading...</h1>
+        <p class="section-subtitle" id="studentCourse">...</p>
+        <p style="max-width: 600px; margin: 0 auto; color: #666;" id="studentBio"></p>
+    </header>
+
+    <section class="section-padding" style="background: white;">
+        <div class="container">
+            <div class="portfolio-grid" id="studentGallery"></div>
+        </div>
+    </section>
+
+    <footer><p>&copy; 2025 Thevenkyart.</p></footer>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <span class="lightbox-prev" id="lightboxPrev">&#10094;</span>
+        <img src="" alt="Preview" class="lightbox-content" id="lightboxImg">
+        <span class="lightbox-next" id="lightboxNext">&#10095;</span>
+    </div>
+
+    <script src="js/main.js"></script>
+
+    <script>
+        // === UPDATE THIS LIST WITH YOUR ACTUAL STUDENTS ===
+        const studentData = {
+            "dhanushya": {
+                name: "Dhanushya",
+                course: "Advanced Pencil Sketching",
+                bio: "Dhanushya has mastered realistic shading and portraits.",
+                images: [
+                    "assets/images/Students/Dhanushya-all.jpg",
+                    "assets/images/Students/dhanushya-2.jpg", // Make sure these files exist!
+                    "assets/images/Students/dhanushya-3.jpg"
+                ]
+            },
+            "prathyusha": {
+                name: "Prathyusha",
+                course: "Pencil Sketching",
+                bio: "Focusing on fine details and texture work.",
+                images: [
+                    "assets/images/Students/prathyusha.jpg",
+                    "assets/images/Students/prathyusha-2.jpg"
+                ]
+            },
+            "arjun": {
+                name: "Arjun",
+                course: "Digital Art",
+                bio: "Creating imaginative character concepts.",
+                images: [
+                    "https://picsum.photos/id/1040/400/600",
+                    "https://picsum.photos/id/1041/400/400"
+                ]
+            }
+        };
+
+        // LOAD PROFILE LOGIC
+        function loadStudentProfile() {
+            const params = new URLSearchParams(window.location.search);
+            const studentId = params.get('id');
+            const student = studentData[studentId];
+
+            if (student) {
+                document.getElementById('studentName').innerText = student.name;
+                document.getElementById('studentCourse').innerText = student.course;
+                document.getElementById('studentBio').innerText = student.bio;
+
+                const galleryContainer = document.getElementById('studentGallery');
+                student.images.forEach(imgSrc => {
+                    const div = document.createElement('div');
+                    div.className = 'portfolio-item show';
+                    div.innerHTML = `<img src="${imgSrc}" alt="${student.name}"><div class="portfolio-overlay"><h3>${student.name}</h3></div>`;
+                    galleryContainer.appendChild(div);
+                });
+
+                // Attach click events to new images for Lightbox
+                const items = document.querySelectorAll('.portfolio-item');
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightboxImg');
+
+                items.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const img = item.querySelector('img');
+                        if(lightbox && img){
+                            lightbox.classList.add('active');
+                            lightboxImg.src = img.src;
+                        }
+                    });
+                });
+            } else {
+                document.getElementById('studentName').innerText = "Student Not Found";
+            }
+        }
+        window.addEventListener('DOMContentLoaded', loadStudentProfile);
+    </script>
+</body>
+</html>
