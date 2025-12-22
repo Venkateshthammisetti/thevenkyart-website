@@ -1199,3 +1199,130 @@ footer {
     color: white; /* Icon turns white */
     transform: translateY(-3px); /* Subtle float up */
 }
+
+
+/* =========================================
+   WHY CHOOSE US (Feature Section)
+   ========================================= */
+
+.why-choose-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* The Grid Layout */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on desktop */
+    gap: 30px;
+    margin: 40px 0;
+    text-align: left;
+}
+
+.feature-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* The Checkmark Icon */
+.check-icon {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    color: var(--primary-color); /* Your Red/Orange Brand Color */
+}
+
+.feature-card h4 {
+    color: var(--dark-bg);
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.feature-card p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Footer Area with Button & Faces */
+.why-choose-footer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.join-text {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+/* Social Proof (Faces) Styling */
+.social-proof {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.faces {
+    display: flex;
+}
+
+.faces img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 3px solid white; /* Creates the overlap separation */
+    margin-left: -15px;      /* Creates the overlapping effect */
+    object-fit: cover;
+}
+
+.faces img:first-child {
+    margin-left: 0;
+}
+
+.proof-text {
+    text-align: left;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    color: #555;
+}
+
+.proof-text strong {
+    color: #00aa6c; /* Green color for the number (like the reference) or use var(--primary-color) */
+    font-weight: 700;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr; /* Stack vertically on mobile */
+        gap: 20px;
+    }
+    
+    .feature-card {
+        padding: 20px;
+    }
+
+    .social-proof {
+        flex-direction: column; /* Stack faces and text on small phones */
+    }
+    
+    .faces {
+        margin-bottom: 10px;
+    }
+}
