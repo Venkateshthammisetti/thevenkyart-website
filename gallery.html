@@ -511,6 +511,31 @@
 
     <footer><p>&copy; 2025 Thevenkyart.</p></footer>
 
+  
     <script src="js/main.js"></script>
+
+      <script>
+    window.addEventListener("load", function() {
+        // 1. Get the category from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+
+        // 2. If category exists, wait 300ms to let main.js finish, then click
+        if (category) {
+            setTimeout(function() {
+                // Find the button with the matching data-filter
+                const filterBtn = document.querySelector(`.filter-btn[data-filter="${category}"]`);
+                
+                if (filterBtn) {
+                    console.log("Auto-clicking filter: " + category); // Debugging check
+                    filterBtn.click();
+                } else {
+                    console.log("Filter button not found for: " + category);
+                }
+            }, 300); // 300ms delay to ensure main.js is ready
+        }
+    });
+</script>
+
 </body>
 </html>
