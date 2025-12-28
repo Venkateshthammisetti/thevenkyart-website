@@ -67,6 +67,7 @@ h1 {
 h2,
 h3 {
   font-weight: 600;
+  color:#0f172a;
 }
 
 .section-title {
@@ -1324,5 +1325,67 @@ footer {
     
     .faces {
         margin-bottom: 10px;
+    }
+}
+
+/* --- MURALS PAGE STYLES --- */
+
+.mural-hero {
+    height: 80vh;
+    /* Adjust this image path if you want a different hero background */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../assets/images/artworks/Wall Painting/wings-wallart.JPEG');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    margin-top: 0; /* Navbar is fixed, so this might need adjustment based on your nav settings */
+    position: relative;
+}
+
+.process-step {
+    text-align: center;
+    padding: 30px 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.process-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.step-number {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    opacity: 0.15;
+    line-height: 1;
+    margin-bottom: -15px;
+    display: block;
+}
+
+/* Specific button style for the Mural Hero if needed */
+.mural-hero .btn-primary {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+}
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    /* Make the main container width 100% so it fits the phone screen */
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    /* Stack images vertically instead of side-by-side */
+    .gallery-item {
+        width: 100%; /* Full width */
+        margin-bottom: 20px;
     }
 }
