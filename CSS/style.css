@@ -3,18 +3,33 @@
    ========================================= */
 :root {
   /* --- FONTS --- */
-  --font-heading: "Poppins", sans-serif; /* Modern & Geometric */
-  --font-body: "Inter", sans-serif; /* Clean & Readable */
-  --font-artistic: "Cormorant Garamond", serif; /* For Hero Title */
+  --font-heading: "Cormorant Garamond", serif;
+  --font-body: "Inter", sans-serif;
+  --font-artistic: "Cormorant Garamond", serif;
 
-  /* --- COLORS --- */
-  --primary-color: #f45e19; /* Vibrant Orange-Red */
-  --dark-bg: #0f172a; /* Navy Blue */
-  --light-bg: #f1f5f9; /* Light Blue-Grey */
+  /* --- HIGH-END COLORS (Tailored Palettes) --- */
+  --primary-color: #ff3b30; /* Premium Vibrant Red-Orange */
+  --primary-hover: #ff1e11;
+
+  /* Dark Mode Surfaces */
+  --dark-bg: #09090b; /* Very Dark Slate */
+  --surface-dark: rgba(255, 255, 255, 0.05);
+
+  /* Light Mode Surfaces */
+  --light-bg: #ffffff;
+  --surface-light: #f8fafc;
+
+  /* Text */
   --text-dark: #1e293b;
+  --text-muted: #64748b;
   --text-light: #f8fafc;
 
-  --transition: all 0.3s ease;
+  /* Utilities */
+  --glass-bg: rgba(9, 9, 11, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: blur(12px);
+
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -54,10 +69,15 @@ h4,
 h5,
 h6,
 .section-title,
-.logo,
+.logo {
+  font-family: var(--font-heading);
+}
+
 .btn,
 .nav-links a {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 h1 {
@@ -66,20 +86,23 @@ h1 {
 }
 h2,
 h3 {
-  font-weight: 600;
-  color:#0f172a;
+  font-weight: 700;
+  color: #0f172a;
 }
 
 .section-title {
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+  font-size: 3rem;
+  margin-bottom: 5px;
+  font-weight: 700;
 }
 .section-subtitle {
   text-align: center;
   color: #666;
   margin-bottom: 50px;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 .section-padding {
   padding: 80px 20px;
@@ -94,15 +117,38 @@ h3 {
    ========================================= */
 .navbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   padding: 1rem 5%;
-  background-color: var(--dark-bg);
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: var(--transition);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: 10px 25px;
+  border-radius: 50px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+.logo:hover img {
+  transform: scale(1.05);
 }
 
 .logo img {
@@ -184,7 +230,9 @@ h3 {
   opacity: 1;
   z-index: 2;
   transform: scale(1.05);
-  transition: opacity 1.5s ease-in-out, transform 6s linear;
+  transition:
+    opacity 1.5s ease-in-out,
+    transform 6s linear;
 }
 
 .hero-overlay {
@@ -236,7 +284,7 @@ h3 {
   background-image: url("../assets/images/Hero-images-slideshow/venkateswara-paiting.jpeg");
 }
 .slide-2 {
-  background-image: url("../assets/images/Hero-images-slideshow/Chrome Text Effect Vol 7.jpg");
+  background-image: url("../assets/images/Hero-images-slideshow/Chrome.jpg");
 }
 .slide-3 {
   background-image: url("../assets/images/Hero-images-slideshow/elephant-slide.jpg");
@@ -274,11 +322,36 @@ h3 {
   background-color: var(--primary-color);
   color: white;
   border: 2px solid var(--primary-color);
-  box-shadow: 0 4px 6px rgba(230, 57, 70, 0.3);
+  box-shadow: 0 10px 20px -10px var(--primary-color);
 }
 .btn-primary:hover {
-  background-color: transparent;
-  color: var(--primary-color);
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 25px -10px var(--primary-hover);
+}
+
+.btn-glow {
+  position: relative;
+  z-index: 1;
+}
+.btn-glow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--primary-color);
+  z-index: -1;
+  filter: blur(15px);
+  opacity: 0;
+  transition: var(--transition);
+}
+.btn-glow:hover::after {
+  opacity: 0.6;
 }
 
 .btn-secondary {
@@ -352,6 +425,11 @@ h3 {
 .about-image img {
   width: 100%;
   max-width: 100%;
+  transition: var(--transition);
+}
+.about-image:hover img {
+  transform: scale(1.02);
+  box-shadow: 25px 25px 0px var(--primary-color);
 }
 .about-image1 img {
   width: 100%;
@@ -480,11 +558,13 @@ h3 {
 }
 .student-card {
   background-color: white;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 .student-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .portfolio-item img {
@@ -665,47 +745,73 @@ h3 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(10, 10, 10, 0.85); /* Slightly darker/transparent */
+  backdrop-filter: blur(8px); /* Modern blur effect */
   display: none;
   justify-content: center;
   align-items: center;
 }
 .lightbox.active {
   display: flex;
-  animation: fadeIn 0.3s;
+  animation: fadeIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .lightbox-content {
-  max-width: 95%;
-  max-height: 95vh;
+  max-width: 90%;
+  max-height: 90vh;
   width: auto;
   height: auto;
   object-fit: contain;
-  border: 1px solid white;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); /* Soft, deep shadow */
+  border-radius: 4px; /* Slight rounding for modern feel */
+  transform: scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.lightbox.active .lightbox-content {
+  transform: scale(1);
 }
 .lightbox-close {
   position: absolute;
-  top: 20px;
-  right: 30px;
-  color: white;
-  font-size: 40px;
+  top: 25px;
+  right: 40px;
+  color: #fff;
+  font-size: 35px;
   cursor: pointer;
+  transition:
+    transform 0.2s,
+    color 0.2s;
+  z-index: 3001;
+  font-family: Arial, sans-serif;
+  line-height: 1;
+  opacity: 0.7;
+}
+.lightbox-close:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
 .lightbox-prev,
 .lightbox-next {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: white;
-  font-size: 40px;
+  color: #fff;
+  font-size: 24px;
   cursor: pointer;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.3);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(20, 20, 20, 0.6);
   border-radius: 50%;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+  z-index: 3001;
 }
 .lightbox-prev:hover,
 .lightbox-next:hover {
-  background-color: var(--primary-color);
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%) scale(1.05);
 }
 .lightbox-prev {
   left: 20px;
@@ -742,29 +848,29 @@ h3 {
   font-size: 1.5rem;
 }
 .contact-info > p {
-    margin-bottom: 25px;
-    color: #ccc;
-    line-height: 1.6;
+  margin-bottom: 25px;
+  color: #ccc;
+  line-height: 1.6;
 }
-.info-item { 
-    display: flex; 
-    align-items: center; /* Vertically center icon with text */
-    gap: 15px;           /* Space between icon and text */
-    margin-bottom: 20px; 
-    color: #f4f4f4; 
+.info-item {
+  display: flex;
+  align-items: center; /* Vertically center icon with text */
+  gap: 15px; /* Space between icon and text */
+  margin-bottom: 20px;
+  color: #f4f4f4;
 }
 /* Style the Icon specifically */
-.info-item .icon { 
-    color: var(--primary-color); 
-    font-size: 1.2rem;   /* Adjust icon size */
-    min-width: 25px;     /* Prevents icon from shrinking if text is long */
-    text-align: center;
+.info-item .icon {
+  color: var(--primary-color);
+  font-size: 1.2rem; /* Adjust icon size */
+  min-width: 25px; /* Prevents icon from shrinking if text is long */
+  text-align: center;
 }
 /* Remove default margins from the text so it aligns perfectly */
 .info-item p {
-    margin: 0; 
-    color: #ccc;
-    font-size: 1rem;
+  margin: 0;
+  color: #ccc;
+  font-size: 1rem;
 }
 .form-group input,
 .form-group textarea {
@@ -885,7 +991,7 @@ footer {
     background-image: url("../assets/images/Hero-images-slideshow/venky-chandhrababu-mobile.jpg");
   }
   .slide-4 {
-    background-image: url("../assets/images/Hero-images-slideshow/Chrome\ Text\ Effect\ Vol\ 7.jpg");
+    background-image: url("../assets/images/Hero-images-slideshow/Chrome%20Text%20Effect%20Vol%207.jpg");
   }
   .slide-5 {
     background-image: url("../assets/images/Hero-images-slideshow/venky-budha-mobile.jpg");
@@ -937,17 +1043,52 @@ footer {
 
   /* Grids */
   .portfolio-grid {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* Tighter gap for two rows on mobile */
   }
   .portfolio-item {
-    height: 300px; /* Slightly smaller height for phone screens */
+    height: 180px; /* Reduced height to look better as a square-ish tile on mobile */
   }
   .student-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
+  .student-card {
+    padding: 10px; /* Reduce padding inside the card so text fits */
+  }
   .student-card img {
-    height: 150px;
+    height: 120px; /* Make the image slightly shorter */
+  }
+  .student-card h3 {
+    font-size: 1rem; /* Smaller heading for mobile */
+    margin: 10px 0 5px 0;
+  }
+  .student-card p {
+    font-size: 0.8rem; /* Smaller text so it fits in 2 columns */
+  }
+
+  .class-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .class-card {
+    padding: 10px;
+  }
+  .card-image {
+    height: 100px;
+  }
+  .class-card h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  .class-card p {
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+  .btn-card {
+    padding: 6px 15px;
+    font-size: 0.8rem;
+    margin-top: 10px;
   }
 
   /* Contact */
@@ -1114,278 +1255,421 @@ footer {
    LEAD POPUP STYLES
    ========================================= */
 .popup-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Dark background dimming */
-    z-index: 5000; /* Sit on top of everything */
-    display: none; /* Hidden by default */
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.4s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Dark background dimming */
+  z-index: 5000; /* Sit on top of everything */
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .popup-overlay.active {
-    display: flex;
-    opacity: 1;
+  display: flex;
+  opacity: 1;
 }
 
 .popup-content {
-    background: white;
-    padding: 40px;
-    width: 90%;
-    max-width: 400px;
-    border-radius: 10px;
-    position: relative;
-    text-align: center;
-    border-top: 5px solid var(--primary-color); /* Red Top Border */
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    transform: translateY(50px);
-    transition: transform 0.4s ease;
+  background: white;
+  padding: 40px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 10px;
+  position: relative;
+  text-align: center;
+  border-top: 5px solid var(--primary-color); /* Red Top Border */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  transform: translateY(50px);
+  transition: transform 0.4s ease;
 }
 
 .popup-overlay.active .popup-content {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 .popup-header h3 {
-    color: var(--dark-bg);
-    margin-bottom: 10px;
-    font-size: 1.5rem;
+  color: var(--dark-bg);
+  margin-bottom: 10px;
+  font-size: 1.5rem;
 }
 
 .popup-header p {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 25px;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 25px;
 }
 
 .close-popup {
-    position: absolute;
-    top: 10px; right: 15px;
-    font-size: 2rem;
-    color: #999;
-    cursor: pointer;
-    line-height: 1;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 2rem;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
 }
-.close-popup:hover { color: var(--primary-color); }
+.close-popup:hover {
+  color: var(--primary-color);
+}
 
 /* --- SOCIAL LINKS STYLING --- */
-.social-links { 
-    display: flex; 
-    gap: 15px; 
-    margin-top: 15px; 
+.social-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
 }
 
 .social-icon {
-    width: 45px; 
-    height: 45px; 
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color); 
-    display: flex; 
-    justify-content: center;
-    align-items: center; 
-    border-radius: 50%; 
-    transition: var(--transition);
+  width: 45px;
+  height: 45px;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: var(--transition);
 }
 
 .social-icon svg {
-    display: block; /* Fixes tiny alignment bugs */
+  display: block; /* Fixes tiny alignment bugs */
 }
 
 /* Hover Effect: Turns solid color */
-.social-icon:hover { 
-    background-color: var(--primary-color); 
-    color: white; /* Icon turns white */
-    transform: translateY(-3px); /* Subtle float up */
+.social-icon:hover {
+  background-color: var(--primary-color);
+  color: white; /* Icon turns white */
+  transform: translateY(-3px); /* Subtle float up */
 }
-
 
 /* =========================================
    WHY CHOOSE US (Feature Section)
    ========================================= */
 
 .why-choose-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 /* The Grid Layout */
 .features-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on desktop */
-    gap: 30px;
-    margin: 40px 0;
-    text-align: left;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns on desktop */
+  gap: 30px;
+  margin: 40px 0;
+  text-align: left;
 }
 
 .feature-card {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    display: flex;
-    gap: 15px;
-    align-items: flex-start;
-    transition: transform 0.3s ease;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  transition: transform 0.3s ease;
 }
 
 .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* The Checkmark Icon */
 .check-icon {
-    flex-shrink: 0;
-    width: 30px;
-    height: 30px;
-    color: var(--primary-color); /* Your Red/Orange Brand Color */
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  color: var(--primary-color); /* Your Red/Orange Brand Color */
 }
 
 .feature-card h4 {
-    color: var(--dark-bg);
-    margin-bottom: 8px;
-    font-size: 1.1rem;
+  color: var(--dark-bg);
+  margin-bottom: 8px;
+  font-size: 1.1rem;
 }
 
 .feature-card p {
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.5;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
 }
 
 /* Footer Area with Button & Faces */
 .why-choose-footer {
-    text-align: center;
-    margin-top: 40px;
+  text-align: center;
+  margin-top: 40px;
 }
 
 .join-text {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-    color: var(--text-dark);
-    font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+  font-weight: 500;
 }
 
 /* Social Proof (Faces) Styling */
 .social-proof {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
 }
 
 .faces {
-    display: flex;
+  display: flex;
 }
 
 .faces img {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: 3px solid white; /* Creates the overlap separation */
-    margin-left: -15px;      /* Creates the overlapping effect */
-    object-fit: cover;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 3px solid white; /* Creates the overlap separation */
+  margin-left: -15px; /* Creates the overlapping effect */
+  object-fit: cover;
 }
 
 .faces img:first-child {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 .proof-text {
-    text-align: left;
-    font-size: 0.9rem;
-    line-height: 1.2;
-    color: #555;
+  text-align: left;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  color: #555;
 }
 
 .proof-text strong {
-    color: #00aa6c; /* Green color for the number (like the reference) or use var(--primary-color) */
-    font-weight: 700;
+  color: #00aa6c; /* Green color for the number (like the reference) or use var(--primary-color) */
+  font-weight: 700;
 }
 
 /* Mobile Responsiveness */
 @media screen and (max-width: 768px) {
-    .features-grid {
-        grid-template-columns: 1fr; /* Stack vertically on mobile */
-        gap: 20px;
-    }
-    
-    .feature-card {
-        padding: 20px;
-    }
+  .features-grid {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* Two columns on mobile instead of stacked */
+    gap: 15px; /* Slightly tighter gap for mobile fitting */
+  }
 
-    .social-proof {
-        flex-direction: column; /* Stack faces and text on small phones */
-    }
-    
-    .faces {
-        margin-bottom: 10px;
-    }
+  .feature-card {
+    padding: 15px; /* Less padding to fit two columns */
+    flex-direction: column; /* Stack icon above text to save horizontal space */
+    align-items: center;
+    text-align: center;
+  }
+
+  .social-proof {
+    flex-direction: column; /* Stack faces and text on small phones */
+  }
+
+  .faces {
+    margin-bottom: 10px;
+  }
 }
 
 /* --- MURALS PAGE STYLES --- */
 
 .mural-hero {
-    height: 80vh;
-    /* Adjust this image path if you want a different hero background */
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../assets/images/artworks/Wall Painting/wings-wallart.JPEG');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    margin-top: 0; /* Navbar is fixed, so this might need adjustment based on your nav settings */
-    position: relative;
+  height: 80vh;
+  /* Adjust this image path if you want a different hero background */
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../assets/images/artworks/WallPainting/wings-wallart.JPEG");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-top: 0; /* Navbar is fixed, so this might need adjustment based on your nav settings */
+  position: relative;
 }
 
 .process-step {
-    text-align: center;
-    padding: 30px 20px;
-    background: #f8fafc;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  padding: 30px 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .process-step:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .step-number {
-    font-family: 'Poppins', sans-serif;
-    font-size: 3.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    opacity: 0.15;
-    line-height: 1;
-    margin-bottom: -15px;
-    display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  opacity: 0.15;
+  line-height: 1;
+  margin-bottom: -15px;
+  display: block;
 }
 
 /* Specific button style for the Mural Hero if needed */
 .mural-hero .btn-primary {
-    padding: 15px 35px;
-    font-size: 1.1rem;
+  padding: 15px 35px;
+  font-size: 1.1rem;
+}
+
+/* =========================================
+   11. ANIMATIONS & MICRO-INTERACTIONS
+   ========================================= */
+
+/* --- HOVER UTILITIES --- */
+.hover-scale {
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease;
+}
+.hover-scale:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.hover-float {
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+.hover-float:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* --- SCROLL ANIMATION CLASSES (Triggered by JS) --- */
+[data-animate] {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+[data-animate].is-animated {
+  animation-duration: 0.8s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Fade Up */
+[data-animate="fade-up"].is-animated {
+  animation-name: fadeUpAnim;
+}
+@keyframes fadeUpAnim {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade Down (For Navbar) */
+[data-animate="fade-down"].is-animated {
+  animation-name: fadeDownAnim;
+}
+@keyframes fadeDownAnim {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade Left */
+[data-animate="fade-left"].is-animated {
+  animation-name: fadeLeftAnim;
+}
+@keyframes fadeLeftAnim {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Fade Right */
+[data-animate="fade-right"].is-animated {
+  animation-name: fadeRightAnim;
+}
+@keyframes fadeRightAnim {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Zoom In (For Portfolio Grid) */
+[data-animate="zoom-in"].is-animated {
+  animation-name: zoomInAnim;
+}
+@keyframes zoomInAnim {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Delay Utilites */
+[data-delay="100"].is-animated {
+  animation-delay: 0.1s;
+}
+[data-delay="200"].is-animated {
+  animation-delay: 0.2s;
+}
+[data-delay="300"].is-animated {
+  animation-delay: 0.3s;
+}
+[data-delay="400"].is-animated {
+  animation-delay: 0.4s;
+}
+[data-delay="500"].is-animated {
+  animation-delay: 0.5s;
 }
 /* Mobile Optimization */
 @media (max-width: 768px) {
-    /* Make the main container width 100% so it fits the phone screen */
-    .container {
-        width: 100%;
-        padding: 10px;
-    }
+  /* Make the main container width 100% so it fits the phone screen */
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
 
-    /* Stack images vertically instead of side-by-side */
-    .gallery-item {
-        width: 100%; /* Full width */
-        margin-bottom: 20px;
-    }
+  /* Stack images vertically instead of side-by-side */
+  .gallery-item {
+    width: 100%; /* Full width */
+    margin-bottom: 20px;
+  }
 }
