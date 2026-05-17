@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs ls -lh)",
+      "Bash(awk '{sum+=$5} END {print \"Total artwork images: \" sum}')",
+      "Bash(node server.js)"
+    ]
+  }
+}

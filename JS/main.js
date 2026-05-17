@@ -1,56 +1,61 @@
 document.addEventListener("DOMContentLoaded", () => {
   // ==========================================
-  // 0. LOADING PRELOADER
+  // 0. LOADING PRELOADER (first visit only)
   // ==========================================
   const loader = document.getElementById("loader");
   const words = document.querySelectorAll(".loader-words span");
 
   if (loader && words.length > 0) {
-    let currentWord = 0;
-    const wordInterval = 400; // Increased interval for a slower flashing effect
+    const alreadySeen = sessionStorage.getItem("loaderShown");
 
-    // Prevent scrolling and set initial zoom state while loading
-    document.body.classList.add("no-scroll");
-    document.body.classList.add("page-zoomed");
+    if (alreadySeen) {
+      // Skip animation on return visits — hide instantly
+      loader.style.display = "none";
+      document.body.classList.remove("no-scroll", "page-zoomed");
+    } else {
+      // Mark as seen immediately so navigating away mid-animation still counts
+      sessionStorage.setItem("loaderShown", "1");
 
-    const showNextWord = () => {
-      // Hide the previous word normally if it's not the last one
-      if (currentWord > 0 && currentWord < words.length) {
-        words[currentWord - 1].classList.remove("active");
-      }
+      let currentWord = 0;
+      const wordInterval = 400;
 
-      if (currentWord < words.length) {
-        words[currentWord].classList.add("active");
-        currentWord++;
+      document.body.classList.add("no-scroll");
+      document.body.classList.add("page-zoomed");
 
-        // If this was the last word we just showed, wait longer before zooming it out
-        if (currentWord === words.length) {
-          setTimeout(showNextWord, 800); // Give the last word more time on screen
-        } else {
-          setTimeout(showNextWord, wordInterval);
+      const showNextWord = () => {
+        if (currentWord > 0 && currentWord < words.length) {
+          words[currentWord - 1].classList.remove("active");
         }
-      } else {
-        // We are past the last word. Zoom it out!
-        words[words.length - 1].classList.add("zoom-out");
 
-        // Hide spinner as well during the final zoom
-        const spinner = document.querySelector(".loader-spinner");
-        if (spinner) spinner.style.opacity = "0";
+        if (currentWord < words.length) {
+          words[currentWord].classList.add("active");
+          currentWord++;
 
-        setTimeout(() => {
-          loader.classList.add("hidden");
-          // Trigger the page zoom out effect
-          document.body.classList.remove("page-zoomed");
+          if (currentWord === words.length) {
+            setTimeout(showNextWord, 800);
+          } else {
+            setTimeout(showNextWord, wordInterval);
+          }
+        } else {
+          words[words.length - 1].classList.add("zoom-out");
+
+          const spinner = document.querySelector(".loader-spinner");
+          if (spinner) spinner.style.opacity = "0";
 
           setTimeout(() => {
-            document.body.classList.remove("no-scroll");
-            loader.style.display = "none";
-          }, 800);
-        }, 400); // Wait for the zoom-out to feel impactful before sliding the loader away
-      }
-    };
+            loader.classList.add("hidden");
+            document.body.classList.remove("page-zoomed");
 
-    setTimeout(showNextWord, 100);
+            setTimeout(() => {
+              document.body.classList.remove("no-scroll");
+              loader.style.display = "none";
+            }, 800);
+          }, 400);
+        }
+      };
+
+      setTimeout(showNextWord, 100);
+    }
   }
 
   // ==========================================
@@ -439,5 +444,26 @@ document.addEventListener("DOMContentLoaded", () => {
         char.style.filter = "blur(0px)";
       }
     });
+  });
+
+  // ==========================================
+  // 8. PROGRESSIVE IMAGE LOADING
+  // ==========================================
+  const galleryImgs = document.querySelectorAll(
+    ".portfolio-item img, .student-card img",
+  );
+
+  galleryImgs.forEach((img) => {
+    img.decoding = "async";
+    if (img.complete && img.naturalWidth > 0) {
+      img.classList.add("img-loaded");
+    } else {
+      img.addEventListener("load", () => img.classList.add("img-loaded"), {
+        once: true,
+      });
+      img.addEventListener("error", () => img.classList.add("img-loaded"), {
+        once: true,
+      });
+    }
   });
 });
