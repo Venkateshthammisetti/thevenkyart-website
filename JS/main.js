@@ -211,6 +211,18 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentIndex = 0;
 
   if (lightbox && allItems.length > 0) {
+    // Open / close helpers — lock body scroll so background can't scroll behind lightbox
+    function openLightbox(img) {
+      lightbox.classList.add("active");
+      lightboxImg.src = img.src;
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
     // 1. Open Lightbox
     allItems.forEach((item) => {
       item.addEventListener("click", () => {
@@ -223,9 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
           );
           currentGalleryImages = visibleItems;
           currentIndex = visibleItems.indexOf(img);
-
-          lightbox.classList.add("active");
-          lightboxImg.src = img.src;
+          openLightbox(img);
         }
       });
     });
@@ -254,25 +264,41 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!lightbox.classList.contains("active")) return;
       if (e.key === "ArrowRight") updateImage(currentIndex + 1);
       else if (e.key === "ArrowLeft") updateImage(currentIndex - 1);
-      else if (e.key === "Escape") lightbox.classList.remove("active");
+      else if (e.key === "Escape") closeLightbox();
     });
 
     // 5. Close Events
-    lightboxClose.addEventListener("click", () =>
-      lightbox.classList.remove("active"),
-    );
+    lightboxClose.addEventListener("click", () => closeLightbox());
     lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) lightbox.classList.remove("active");
+      if (e.target === lightbox) closeLightbox();
     });
 
-    // 6. TOUCH SWIPE SUPPORT (Mobile)
+    // 6. Prevent background scroll — block wheel and non-pinch touchmove
+    lightbox.addEventListener("wheel", (e) => e.preventDefault(), {
+      passive: false,
+    });
+
+    lightbox.addEventListener(
+      "touchmove",
+      (e) => {
+        // Allow two-finger gestures (pinch-to-zoom) but block single-finger scroll
+        if (e.touches.length === 1) e.preventDefault();
+      },
+      { passive: false },
+    );
+
+    // 7. TOUCH SWIPE SUPPORT (Mobile) — ignore pinch gestures
     let touchStartX = 0;
     let touchEndX = 0;
+    let isMultiTouch = false;
 
     lightbox.addEventListener(
       "touchstart",
       (e) => {
-        touchStartX = e.changedTouches[0].screenX;
+        isMultiTouch = e.touches.length > 1;
+        if (!isMultiTouch) {
+          touchStartX = e.changedTouches[0].screenX;
+        }
       },
       { passive: true },
     );
@@ -280,6 +306,11 @@ document.addEventListener("DOMContentLoaded", () => {
     lightbox.addEventListener(
       "touchend",
       (e) => {
+        // If any additional finger is still down, it was a pinch — skip swipe
+        if (isMultiTouch || e.touches.length > 0) {
+          isMultiTouch = e.touches.length > 0;
+          return;
+        }
         touchEndX = e.changedTouches[0].screenX;
         handleSwipeGesture();
       },
@@ -287,14 +318,8 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     function handleSwipeGesture() {
-      // Swipe Left (Show Next)
-      if (touchEndX < touchStartX - 50) {
-        updateImage(currentIndex + 1);
-      }
-      // Swipe Right (Show Prev)
-      if (touchEndX > touchStartX + 50) {
-        updateImage(currentIndex - 1);
-      }
+      if (touchEndX < touchStartX - 50) updateImage(currentIndex + 1);
+      if (touchEndX > touchStartX + 50) updateImage(currentIndex - 1);
     }
   }
 
