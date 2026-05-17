@@ -1790,6 +1790,54 @@ footer {
 [data-delay="500"].is-animated {
   animation-delay: 0.5s;
 }
+/* ==========================================
+   PROGRESSIVE IMAGE LOADING
+   ========================================== */
+
+@keyframes img-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+.portfolio-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, #ede8e3 25%, #f5f1ed 37%, #ede8e3 63%);
+  background-size: 400px 100%;
+  animation: img-shimmer 1.4s ease infinite;
+  pointer-events: none;
+}
+
+.portfolio-item:has(img.img-loaded)::before {
+  display: none;
+}
+
+.portfolio-item img {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.5s ease;
+}
+
+.portfolio-item img.img-loaded {
+  opacity: 1;
+}
+
+.portfolio-overlay {
+  z-index: 3;
+}
+
+.student-card img {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.student-card img.img-loaded {
+  opacity: 1;
+}
+
 /* Mobile Optimization */
 @media (max-width: 768px) {
   /* Make the main container width 100% so it fits the phone screen */
