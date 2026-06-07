@@ -762,11 +762,13 @@
 
     <div class="lightbox" id="lightbox">
         <span class="lightbox-close" id="lightboxClose">&times;</span>
-
-        <img src="" alt="Gallery Preview" class="lightbox-content" id="lightboxImg">
-
         <span class="lightbox-prev" id="lightboxPrev">&#10094;</span>
+        <img src="" alt="Gallery Preview" class="lightbox-content" id="lightboxImg" draggable="false">
         <span class="lightbox-next" id="lightboxNext">&#10095;</span>
+        <div class="lightbox-zoom-controls">
+          <button class="lightbox-zoom-btn" id="lightboxZoomIn" title="Zoom in (+)">+</button>
+          <button class="lightbox-zoom-btn" id="lightboxZoomOut" title="Zoom out (−)">&#8722;</button>
+        </div>
     </div>
 
     <footer>
