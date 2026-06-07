@@ -197,22 +197,59 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ==========================================
-  // 4. SMART LIGHTBOX (Click + Keyboard + SWIPE)
+  // 4. SMART LIGHTBOX (Click + Keyboard + Swipe + Zoom + Pan)
   // ==========================================
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightboxImg");
   const lightboxClose = document.getElementById("lightboxClose");
   const lightboxPrev = document.getElementById("lightboxPrev");
   const lightboxNext = document.getElementById("lightboxNext");
+  const lightboxZoomIn = document.getElementById("lightboxZoomIn");
+  const lightboxZoomOut = document.getElementById("lightboxZoomOut");
 
   const allItems = document.querySelectorAll(".portfolio-item, .student-card");
 
   let currentGalleryImages = [];
   let currentIndex = 0;
 
+  // Zoom & pan state
+  let zoomLevel = 1;
+  let panX = 0;
+  let panY = 0;
+  const MIN_ZOOM = 1;
+  const MAX_ZOOM = 4;
+  const ZOOM_STEP = 0.5;
+
+  function applyTransform(instant) {
+    if (instant) lightboxImg.style.transition = "none";
+    else lightboxImg.style.transition = "";
+    lightboxImg.style.transform =
+      `translate(${panX}px, ${panY}px) scale(${zoomLevel})`;
+    lightboxImg.style.cursor = zoomLevel > 1 ? "grab" : "default";
+    if (lightboxZoomIn) lightboxZoomIn.disabled = zoomLevel >= MAX_ZOOM;
+    if (lightboxZoomOut) lightboxZoomOut.disabled = zoomLevel <= MIN_ZOOM;
+  }
+
+  function setZoom(newZoom, instant) {
+    zoomLevel = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newZoom));
+    if (zoomLevel === MIN_ZOOM) { panX = 0; panY = 0; }
+    applyTransform(instant);
+  }
+
+  function resetZoom() {
+    zoomLevel = 1;
+    panX = 0;
+    panY = 0;
+    lightboxImg.style.transform = "";
+    lightboxImg.style.transition = "";
+    lightboxImg.style.cursor = "default";
+    if (lightboxZoomIn) lightboxZoomIn.disabled = false;
+    if (lightboxZoomOut) lightboxZoomOut.disabled = true;
+  }
+
   if (lightbox && allItems.length > 0) {
-    // Open / close helpers — lock body scroll so background can't scroll behind lightbox
     function openLightbox(img) {
+      resetZoom();
       lightbox.classList.add("active");
       lightboxImg.src = img.src;
       document.body.style.overflow = "hidden";
@@ -221,6 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function closeLightbox() {
       lightbox.classList.remove("active");
       document.body.style.overflow = "";
+      resetZoom();
     }
 
     // 1. Open Lightbox
@@ -245,83 +283,137 @@ document.addEventListener("DOMContentLoaded", () => {
       if (index >= currentGalleryImages.length) currentIndex = 0;
       else if (index < 0) currentIndex = currentGalleryImages.length - 1;
       else currentIndex = index;
+      resetZoom();
       lightboxImg.src = currentGalleryImages[currentIndex].src;
     }
 
-    // 3. Button Click Events
+    // 3. Nav button click events
     lightboxNext.addEventListener("click", (e) => {
       e.stopPropagation();
       updateImage(currentIndex + 1);
     });
-
     lightboxPrev.addEventListener("click", (e) => {
       e.stopPropagation();
       updateImage(currentIndex - 1);
     });
 
-    // 4. Keyboard Events
+    // 4. Zoom button click events
+    lightboxZoomIn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setZoom(zoomLevel + ZOOM_STEP, false);
+    });
+    lightboxZoomOut.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setZoom(zoomLevel - ZOOM_STEP, false);
+    });
+
+    // 5. Keyboard: arrows + zoom keys
     document.addEventListener("keydown", (e) => {
       if (!lightbox.classList.contains("active")) return;
       if (e.key === "ArrowRight") updateImage(currentIndex + 1);
       else if (e.key === "ArrowLeft") updateImage(currentIndex - 1);
       else if (e.key === "Escape") closeLightbox();
+      else if (e.key === "+" || e.key === "=") setZoom(zoomLevel + ZOOM_STEP, false);
+      else if (e.key === "-") setZoom(zoomLevel - ZOOM_STEP, false);
+      else if (e.key === "0") setZoom(MIN_ZOOM, false);
     });
 
-    // 5. Close Events
+    // 6. Close events
     lightboxClose.addEventListener("click", () => closeLightbox());
     lightbox.addEventListener("click", (e) => {
       if (e.target === lightbox) closeLightbox();
     });
 
-    // 6. Prevent background scroll — block wheel and non-pinch touchmove
-    lightbox.addEventListener("wheel", (e) => e.preventDefault(), {
-      passive: false,
+    // 7. Mouse wheel zoom
+    lightbox.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
+      setZoom(zoomLevel + delta, true);
+    }, { passive: false });
+
+    // 8. Mouse drag pan (when zoomed in)
+    let isDragging = false;
+    let dragStartX = 0, dragStartY = 0;
+    let panStartX = 0, panStartY = 0;
+
+    lightboxImg.addEventListener("mousedown", (e) => {
+      if (zoomLevel <= 1) return;
+      e.preventDefault();
+      isDragging = true;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      panStartX = panX;
+      panStartY = panY;
+      lightboxImg.style.cursor = "grabbing";
     });
 
-    lightbox.addEventListener(
-      "touchmove",
-      (e) => {
-        // Allow two-finger gestures (pinch-to-zoom) but block single-finger scroll
-        if (e.touches.length === 1) e.preventDefault();
-      },
-      { passive: false },
-    );
+    document.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+      panX = panStartX + (e.clientX - dragStartX);
+      panY = panStartY + (e.clientY - dragStartY);
+      applyTransform(true);
+    });
 
-    // 7. TOUCH SWIPE SUPPORT (Mobile) — ignore pinch gestures
-    let touchStartX = 0;
-    let touchEndX = 0;
+    document.addEventListener("mouseup", () => {
+      if (!isDragging) return;
+      isDragging = false;
+      if (zoomLevel > 1) lightboxImg.style.cursor = "grab";
+    });
+
+    // 9. Touch: pinch-to-zoom + pan + swipe
+    let touchStartX = 0, touchEndX = 0;
     let isMultiTouch = false;
+    let pinchStartDist = 0, pinchStartZoom = 1;
+    let touchPanStartX = 0, touchPanStartY = 0;
+    let panStartXTouch = 0, panStartYTouch = 0;
 
-    lightbox.addEventListener(
-      "touchstart",
-      (e) => {
-        isMultiTouch = e.touches.length > 1;
-        if (!isMultiTouch) {
-          touchStartX = e.changedTouches[0].screenX;
-        }
-      },
-      { passive: true },
-    );
-
-    lightbox.addEventListener(
-      "touchend",
-      (e) => {
-        // If any additional finger is still down, it was a pinch — skip swipe
-        if (isMultiTouch || e.touches.length > 0) {
-          isMultiTouch = e.touches.length > 0;
-          return;
-        }
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipeGesture();
-      },
-      { passive: true },
-    );
-
-    function handleSwipeGesture() {
-      if (touchEndX < touchStartX - 50) updateImage(currentIndex + 1);
-      if (touchEndX > touchStartX + 50) updateImage(currentIndex - 1);
+    function getPinchDist(touches) {
+      const dx = touches[0].clientX - touches[1].clientX;
+      const dy = touches[0].clientY - touches[1].clientY;
+      return Math.sqrt(dx * dx + dy * dy);
     }
+
+    lightbox.addEventListener("touchstart", (e) => {
+      isMultiTouch = e.touches.length > 1;
+      if (e.touches.length === 2) {
+        pinchStartDist = getPinchDist(e.touches);
+        pinchStartZoom = zoomLevel;
+      } else if (e.touches.length === 1) {
+        touchStartX = e.changedTouches[0].screenX;
+        touchPanStartX = e.changedTouches[0].clientX;
+        touchPanStartY = e.changedTouches[0].clientY;
+        panStartXTouch = panX;
+        panStartYTouch = panY;
+      }
+    }, { passive: true });
+
+    lightbox.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      if (e.touches.length === 2) {
+        const newDist = getPinchDist(e.touches);
+        setZoom(pinchStartZoom * (newDist / pinchStartDist), true);
+      } else if (e.touches.length === 1 && zoomLevel > 1) {
+        panX = panStartXTouch + (e.touches[0].clientX - touchPanStartX);
+        panY = panStartYTouch + (e.touches[0].clientY - touchPanStartY);
+        applyTransform(true);
+      }
+    }, { passive: false });
+
+    lightbox.addEventListener("touchend", (e) => {
+      if (isMultiTouch || e.touches.length > 0) {
+        isMultiTouch = e.touches.length > 0;
+        return;
+      }
+      touchEndX = e.changedTouches[0].screenX;
+      if (zoomLevel <= 1) {
+        if (touchEndX < touchStartX - 50) updateImage(currentIndex + 1);
+        else if (touchEndX > touchStartX + 50) updateImage(currentIndex - 1);
+      }
+    }, { passive: true });
   }
+
+  // Initialize zoom-out button as disabled on page load
+  if (lightboxZoomOut) lightboxZoomOut.disabled = true;
 
   // ==========================================
   // 5. TESTIMONIAL CAROUSEL

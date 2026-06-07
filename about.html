@@ -4,25 +4,104 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Me | Thevenkyart</title>
+  <title>About Venky – Artist & Art Teacher Hyderabad | Thevenkyart</title>
+  <link rel="shortcut icon" href="./assets/images/Logo/Logo-va-white.png">
+
+  <!-- Pillar 2 SEO: Unique meta description targeting key keywords -->
+  <meta name="description"
+    content="Meet Venky – professional mural artist in Hyderabad and founder of Thevenkyart Academy. Online art classes for kids in India from age 5+. 100+ students trained across 6 progressive levels.">
+  <meta name="keywords"
+    content="mural artist Hyderabad, art classes in hyderbad , best art classes in hyderabad, offline clasonline art classes for kids India, art academy Hyderabad, Venky artist, Thevenkyart Academy, art classes for children India, wall mural Hyderabad">
+  <meta name="author" content="Venkatesh">
+
+  <meta property="og:title" content="About Venky – Mural Artist & Art Teacher | Thevenkyart">
+  <meta property="og:description"
+    content="Professional mural artist in Hyderabad and founder of Thevenkyart Academy. Online art classes for kids from age 5+.">
+  <meta property="og:image" content="https://thevenkyart.com/assets/images/Me/venky-venkateswara-paiting2.jpeg">
+  <meta property="og:url" content="https://thevenkyart.com/about.html">
+  <meta property="og:type" content="profile">
+
   <link rel="stylesheet" href="css/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@400;500;600;700&display=swap"
     rel="stylesheet" />
+  <!-- Pillar 1: Added missing Cormorant Garamond font (used by CSS heading variables) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+
+  <!-- Pillar 2 SEO: JSON-LD Person schema for Venky -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Venkatesh (Venky)",
+    "url": "https://thevenkyart.com/about.html",
+    "image": "https://thevenkyart.com/assets/images/Me/venky-budha-mobile.jpg",
+    "sameAs": [
+      "https://www.instagram.com/art_by__venky",
+      "https://www.youtube.com/@thevenkyart",
+      "https://g.page/thevenkyart"
+    ],
+    "jobTitle": "Mural Artist & Art Educator",
+    "worksFor": {
+      "@type": "LocalBusiness",
+      "name": "Thevenkyart Academy"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hyderabad",
+      "addressRegion": "Telangana",
+      "addressCountry": "IN"
+    },
+    "description": "Venky is a professional mural artist based in Hyderabad, India, and the founder of Thevenkyart Academy – an online art school offering classes for children aged 5+ and adults."
+  }
+  </script>
+
+  <!-- Pillar 2 SEO: JSON-LD LocalBusiness schema for the Academy -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Thevenkyart Academy",
+    "url": "https://thevenkyart.com",
+    "logo": "https://thevenkyart.com/assets/images/Logo/Logo-va-white.png",
+    "image": "https://thevenkyart.com/assets/images/Students/students-offline.png",
+    "description": "Online art academy in Hyderabad offering structured art classes for children aged 5+ and adults. Courses in pencil sketching, painting, and digital art with monthly progress reports.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hyderabad",
+      "addressRegion": "Telangana",
+      "addressCountry": "IN"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "telephone": "+91-9963613404",
+      "email": "contact@thevenkyart.com"
+    },
+    "sameAs": [
+      "https://www.instagram.com/art_by__venky",
+      "https://www.youtube.com/@thevenkyart",
+      "https://g.page/thevenkyart"
+    ]
+  }
+  </script>
 </head>
 
 <body>
   <nav class="navbar" data-animate="fade-down">
     <div class="nav-container">
       <a href="index.html" class="logo">
-        <img src="assets/images/Logo/Logo-va-white.png" alt="Thevenkyart Logo" />
+        <!-- Pillar 1: Added width/height to prevent layout shift -->
+        <img src="assets/images/Logo/Logo-va-white.png" alt="Thevenkyart Logo" width="689" height="609" />
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html" class="active">About</a></li>
-        <li><a href="gallery.html">Portfolio</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
         <li><a href="index.html#classes">Academy</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
@@ -47,11 +126,14 @@
       <div class="about-wrapper" style="margin-bottom: 80px">
         <div class="about-content">
           <div class="about-image1">
-            <img src="assets/images/Me/venky-venkateswara-paiting2.jpeg" alt="Early Sketching Days" />
+            <!-- Pillar 1: Added loading=lazy and width/height; Pillar 2: descriptive alt -->
+            <img loading="lazy" src="assets/images/Me/venky-venkateswara-paiting2.jpeg"
+              alt="Venky working on a Lord Venkateswara painting – early commission artwork in Hyderabad"
+              width="2364" height="1330" />
           </div>
           <h3>The Beginning</h3>
           <p>
-            Hi, I’m Venky – an artist, muralist, software engineer, and
+            Hi, I'm Venky – an artist, muralist, software engineer, and
             founder of The Venky Art Academy. My passion for art ignited in
             childhood, where I was endlessly fascinated by how colors interact
             with light. From sketching vibrant scenes on the backs of school
@@ -65,9 +147,9 @@
             touch.
           </p>
           <p>
-            I specialize in transforming spaces with murals. I’ve turned plain
-            walls in homes into dream worlds that capture families’ stories,
-            moods, and personalities—from playful children’s rooms to
+            I specialize in transforming spaces with murals. I've turned plain
+            walls in homes into dream worlds that capture families' stories,
+            moods, and personalities—from playful children's rooms to
             inspiring living spaces. For restaurants, my murals enhance
             ambiance and productivity, using color, theme, and composition to
             create inviting, memorable environments that boost the overall
@@ -76,9 +158,9 @@
           <p>
             I create bespoke portraits and commissions in pencil, color
             pencil, traditional paint, and digital art. Each piece starts with
-            deep listening to the client’s vision, focusing on capturing not
+            deep listening to the client's vision, focusing on capturing not
             just likeness, but emotion, expression, and personality. From
-            heartfelt gifts to themed illustrations, I’ve fulfilled countless
+            heartfelt gifts to themed illustrations, I've fulfilled countless
             requirements, delivering artworks that clients cherish for
             milestones and memories.
           </p>
@@ -88,92 +170,89 @@
             classes across drawing, painting, and mixed media—from Junior
             levels to Advanced mastery—I guide children to build confidence,
             imagination, and skill. No prior talent needed; just curiosity.
-            I’ve seen kids evolve from hesitant sketches to bold masterpieces,
+            I've seen kids evolve from hesitant sketches to bold masterpieces,
             and nothing fulfills me more than empowering them to achieve
             artistic excellence.
           </p>
           <p>
             My engineering background ensures a professional process:
-            &nbsp;Careful listening to ideas and expectations,Studying spaces,
-            lighting, and references upfront,Detailed planning of concepts,
-            colors, and composition,Iterative refinement for perfect alignment
-            Whether murals, portraits, or teaching, I create art that’s
+            &nbsp;Careful listening to ideas and expectations, studying spaces,
+            lighting, and references upfront, detailed planning of concepts,
+            colors, and composition, iterative refinement for perfect alignment.
+            Whether murals, portraits, or teaching, I create art that's
             meaningful, enduring, and story-driven—bridging my worlds to
             inspire others.
           </p>
         </div>
       </div>
 
+      <!-- Pillar 4: Sticky CTA banner between sections -->
+      <div class="demo-cta-banner">
+        <span>🎨 Ready to start your creative journey?</span>
+        <a href="https://wa.me/919963613404?text=Hi%20Venky,%20We%20want%20to%20connect%20for%20a%20demo%20class"
+          target="_blank" rel="noopener noreferrer" class="demo-cta-btn">Book a Free Demo Class</a>
+      </div>
+
       <div class="about-wrapper reverse">
-
-
         <div class="about-content">
           <h3>Thevenkyart Academy</h3>
           <div class="about-image">
-            <img src="assets/images/Students/students-offline.png" alt="Teaching Art" />
+            <!-- Pillar 1: Added loading=lazy and width/height; Pillar 2: descriptive alt -->
+            <img loading="lazy" src="assets/images/Students/students-offline.png"
+              alt="Thevenkyart Academy students in an offline art class session in Hyderabad"
+              width="1920" height="1080" />
           </div>
-          <p>
-            The Venky Art Academy was born from my lifelong passion for art,
-            starting with childhood sketches on notebook backs and evolving
-            into a mission to make creativity accessible to all. I founded it
-            to prove that art isn't art a gift for the "talented few" it is a
-            learnable skill that unlocks joy, confidence, and expression for
-            everyone. Today, we have empowered over 100+ students, from eager
-            5-year-olds to busy working professionals, through our vibrant
-            online platform. Our mission is To democratize art by dismantling
-            barriers like self-doubt and lack of access. We believe every
-            person harbors an artist within, waiting for the right guidance to
-            emerge. Through structured, inclusive programs, we foster lifelong
-            creativity, helping students transform hesitation into mastery and
-            ideas into masterpieces. We serve a diverse community of learners
-            of all ages and skill levels, from young children aged five and
-            above who are just sparking their imagination with their first
-            strokes, to teens building portfolios for school, hobbies, or
-            future creative careers, and adults who are rediscovering the joy
-            of art alongside work and life responsibilities. No prior
-            experience is required, as we welcome complete beginners and
-            support intermediate learners in reaching new heights within a
-            warm, encouraging environment focused on personal growth. Our
-            teaching follows a comprehensive and progressive six-level
-            curriculum, from Junior to Advanced, covering essential mediums
-            and techniques such as drawing and sketching with pencil shading,
-            hatching, blending, proportions, perspective, gesture drawing,
-            dynamic compositions, portrait sketching, still life, and
-            imaginative character design. Students also explore painting
-            through watercolors for fluid and luminous effects, acrylics and
-            oils for bold textures, layering, and color harmony, along with
-            mixed media experiments that blend paints, inks, and collages.
-            Specialized learning includes digital illustration using tablets
-            and software, color theory, light and shadow interplay, advanced
-            visual effects, and creative crafts such as mandalas, pop art, and
-            thematic storytelling, all reinforced through live classes,
-            homework challenges, and project showcases for hands-on mastery.
+
+          <!-- Pillar 3: Reformatted academy section – (a) short intro -->
+          <p class="academy-intro">
+            Thevenkyart Academy was founded to prove that art isn't a gift reserved for the "talented few" – it is a
+            learnable skill that unlocks joy, confidence, and expression for everyone. Today we have empowered
+            over 100+ students, from eager 5-year-olds to working professionals, through our vibrant online platform.
           </p>
-          <p>
-            Our approach blends passion with precision, led by my
-            engineering-structured mindset and artistic heart, supported by an
-            energetic and skilled team of instructors. We emphasize fun and
-            engagement through interactive live sessions, games, and themed
-            challenges, while encouraging expression and critical thinking by
-            exploring bold ideas, constructive feedback, and the reasoning
-            behind techniques. Technology and art come together through our
-            custom report system, which generates monthly monitored progress
-            reports in detailed PDFs that track skills, improvements,
-            milestones, and personalized goals, giving parents clear insights
-            through modern dashboards. With small group classes ensuring
-            individual attention, learning becomes a joyful collaboration. Our
-            promise is that by joining us, students—whether children or
-            adults—gain confident self-expression, meaningful enjoyment, and
-            sharper critical thinking skills that extend beyond the canvas,
-            supported by decades of passion, a collaborative teaching team,
-            proven results through student showcases, and over 100+ success
-            stories that demonstrate visible progress and lasting confidence.
-          </p>
-          <p>
-            Today, I have taught over 100+ students, ranging from 5-year-olds
-            to working professionals. My curriculum covers everything from
-            Pencil Shading to Digital Illustration.
-          </p>
+
+          <!-- Pillar 3: (b) 3 icon-stat highlights -->
+          <div class="academy-stats">
+            <div class="stat-item">
+              <span class="stat-icon">🎓</span>
+              <strong>100+ Students</strong>
+              <span>From age 5 to working professionals</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon">📚</span>
+              <strong>6 Progressive Levels</strong>
+              <span>Junior to Advanced mastery</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon">📊</span>
+              <strong>Monthly Progress Reports</strong>
+              <span>Detailed PDFs tracking milestones &amp; goals for parents</span>
+            </div>
+          </div>
+
+          <!-- Pillar 3: (c) Curriculum overview in 2-column grid -->
+          <h4 class="curriculum-heading">What You'll Learn</h4>
+          <div class="curriculum-grid">
+            <div class="curriculum-item">
+              <strong>Drawing &amp; Sketching</strong>
+              <p>Pencil shading, hatching, blending, proportions, perspective, gesture drawing, portrait sketching, and
+                character design.</p>
+            </div>
+            <div class="curriculum-item">
+              <strong>Painting</strong>
+              <p>Watercolors for fluid effects, acrylics and oils for bold textures, and mixed media blending paints,
+                inks, and collages.</p>
+            </div>
+            <div class="curriculum-item">
+              <strong>Digital Art</strong>
+              <p>Digital illustration using tablets and software, color theory, light &amp; shadow interplay, and
+                advanced visual effects.</p>
+            </div>
+            <div class="curriculum-item">
+              <strong>Creative Crafts</strong>
+              <p>Mandalas, pop art, and thematic storytelling – reinforced through live classes, homework challenges,
+                and project showcases.</p>
+            </div>
+          </div>
 
           <a href="index.html#classes" class="btn btn-primary">View My Classes</a>
         </div>
@@ -181,11 +260,63 @@
     </div>
   </section>
 
+  <!-- Pillar 3: Testimonials section on /about page -->
+  <section class="section-padding" style="background-color: #f8fafc;">
+    <div class="container">
+      <div class="section-header" data-animate="fade-up">
+        <h2 class="section-title">What <span class="highlight">Students Say</span></h2>
+        <p class="section-subtitle">Real feedback from academy students and parents.</p>
+      </div>
+      <div class="about-testimonials" data-animate="fade-up" data-delay="100">
+        <div class="testimonial-card hover-float">
+          <div class="quote-icon">&#10077;</div>
+          <p class="review-text">
+            "I never thought I could draw realistic portraits until I joined
+            Venky's class. His patience makes complex things look easy."
+          </p>
+          <div class="reviewer-info">
+            <!-- Pillar 1: Added loading=lazy and width/height -->
+            <img loading="lazy" src="assets/images/classes/student-girl-icon.png"
+              alt="Student Dhanushya – Advanced course at Thevenkyart Academy"
+              width="2048" height="2048" />
+            <div>
+              <h5>Dhanushya</h5>
+              <span>Advanced Course</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card hover-float">
+          <div class="quote-icon">&#10077;</div>
+          <p class="review-text">
+            "My daughter loves the weekend classes. Highly recommended for kids!"
+          </p>
+          <div class="reviewer-info">
+            <!-- Pillar 1: Added loading=lazy and width/height -->
+            <img loading="lazy" src="assets/images/classes/parent-icon.png"
+              alt="Parent Naren – child enrolled at Thevenkyart Academy Hyderabad"
+              width="2048" height="2048" />
+            <div>
+              <h5>Naren</h5>
+              <span>Parent</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pillar 5: Google Business Profile in footer; Pillar 3: fixed footer text -->
   <footer>
-    <p>&copy; 2025 Thevenkyart. Designed & Built by You.</p>
+    <p>&copy; 2025 Thevenkyart. All rights reserved.</p>
+    <p style="margin-top: 8px; font-size: 0.85rem;">
+      <!-- Pillar 5: Google Business Profile link (Venky: replace with real URL) -->
+      <a href="https://g.page/venkyart" target="_blank" rel="noopener noreferrer"
+        style="color: #aaa; text-decoration: underline;">Find us on Google Maps</a>
+    </p>
   </footer>
 
-  <a href="https://wa.me/919963613404" class="whatsapp-float" target="_blank">
+  <!-- Pillar 5: Added rel="noopener noreferrer" to WhatsApp float -->
+  <a href="https://wa.me/919963613404" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
     <img src="assets/images/Logo/whatsapp-icon.webp" alt="Chat on WhatsApp" />
   </a>
 
