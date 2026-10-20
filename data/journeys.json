@@ -1,0 +1,115 @@
+{
+  "_comment": "Each entry needs an 'earlier' and 'recent' image. isPlaceholder:true entries use a placeholder graphic until real photos are added — just replace the image paths and set isPlaceholder to false.",
+  "journeys": [
+    {
+      "studentId": "dhanushya",
+      "name": "Dhanushya",
+      "level": "advanced",
+      "mode": "online",
+      "story": "Started with simple pencil outlines and has grown into hyper-realistic portrait work.",
+      "earlier": "assets/images/Students/Dhanushya-landscape-all.jpg",
+      "recent": "assets/images/Students/dhanushya-best-work.png",
+      "isPlaceholder": false
+    },
+    {
+      "studentId": "prathyusha",
+      "name": "Prathyusha",
+      "level": "intermediate",
+      "mode": "online",
+      "story": "Focused on fine detail and texture work, building steady confidence with each piece.",
+      "earlier": "assets/images/Students/1.jpg",
+      "recent": "assets/images/Students/prathyuha-holding-art.png",
+      "isPlaceholder": false
+    },
+    {
+      "studentId": "dhruthi",
+      "name": "Dhruthi",
+      "level": "beginner",
+      "mode": "offline",
+      "story": "Joined the offline studio and has grown steadily in confidence every session.",
+      "earlier": "assets/images/Students/Dhruthi.png",
+      "recent": "assets/images/Students/Dhruthi-portait.jpg",
+      "isPlaceholder": false
+    },
+    {
+      "studentId": "placeholder-1",
+      "name": "Student Journey",
+      "level": "beginner",
+      "mode": "online",
+      "story": "Replace this with a real student's earlier vs. recent work.",
+      "earlier": "assets/images/placeholders/journey-placeholder.svg",
+      "recent": "assets/images/placeholders/journey-placeholder.svg",
+      "isPlaceholder": true
+    },
+    {
+      "studentId": "placeholder-2",
+      "name": "Student Journey",
+      "level": "intermediate",
+      "mode": "offline",
+      "story": "Replace this with a real student's earlier vs. recent work.",
+      "earlier": "assets/images/placeholders/journey-placeholder.svg",
+      "recent": "assets/images/placeholders/journey-placeholder.svg",
+      "isPlaceholder": true
+    },
+    {
+      "studentId": "placeholder-3",
+      "name": "Student Journey",
+      "level": "advanced",
+      "mode": "online",
+      "story": "Replace this with a real student's earlier vs. recent work.",
+      "earlier": "assets/images/placeholders/journey-placeholder.svg",
+      "recent": "assets/images/placeholders/journey-placeholder.svg",
+      "isPlaceholder": true
+    },
+    {
+      "studentId": "placeholder-4",
+      "name": "Student Journey",
+      "level": "beginner",
+      "mode": "offline",
+      "story": "Replace this with a real student's earlier vs. recent work.",
+      "earlier": "assets/images/placeholders/journey-placeholder.svg",
+      "recent": "assets/images/placeholders/journey-placeholder.svg",
+      "isPlaceholder": true
+    },
+    {
+      "studentId": "placeholder-5",
+      "name": "Student Journey",
+      "level": "intermediate",
+      "mode": "online",
+      "story": "Replace this with a real student's earlier vs. recent work.",
+      "earlier": "assets/images/placeholders/journey-placeholder.svg",
+      "recent": "assets/images/placeholders/journey-placeholder.svg",
+      "isPlaceholder": true
+    },
+    {
+      "studentId": "placeholder-6",
+      "name": "Student Journey",
+      "level": "advanced",
+      "mode": "offline",
+      "story": "Replace this with a real student's earlier vs. recent work.",
+      "earlier": "assets/images/placeholders/journey-placeholder.svg",
+      "recent": "assets/images/placeholders/journey-placeholder.svg",
+      "isPlaceholder": true
+    },
+    {
+      "studentId": "placeholder-7",
+      "name": "Student Journey",
+      "level": "beginner",
+      "mode": "online",
+      "story": "Replace this with a real student's earlier vs. recent work.",
+      "earlier": "assets/images/placeholders/journey-placeholder.svg",
+      "recent": "assets/images/placeholders/journey-placeholder.svg",
+      "isPlaceholder": true
+    },
+    {
+      "studentId": "placeholder-8",
+      "name": "Student Journey",
+      "level": "intermediate",
+      "mode": "offline",
+      "story": "Replace this with a real student's earlier vs. recent work.",
+      "earlier": "assets/images/placeholders/journey-placeholder.svg",
+      "recent": "assets/images/placeholders/journey-placeholder.svg",
+      "isPlaceholder": true
+    }
+  ]
+}

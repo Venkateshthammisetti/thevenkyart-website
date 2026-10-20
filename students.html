@@ -4,7 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Gallery | Thevenkyart</title>
+    <title>Student Artwork Gallery – Kids' Art Classes | Thevenkyart</title>
+    <meta name="description"
+      content="See artwork by Thevenkyart Academy students: kids and adults learning sketching, shading and painting in our online art classes and Hyderabad studio classes.">
+    <link rel="canonical" href="https://thevenkyart.com/students.html">
+    <meta property="og:site_name" content="Thevenkyart">
+    <meta property="og:title" content="Student Artwork Gallery – Kids' Art Classes | Thevenkyart">
+    <meta property="og:description" content="See artwork by Thevenkyart Academy students: kids and adults learning sketching, shading and painting in our online art classes and Hyderabad studio classes.">
+    <meta property="og:image" content="https://thevenkyart.com/assets/images/Students/online-student-artwork.jpg">
+    <meta property="og:url" content="https://thevenkyart.com/students.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/png" href="assets/images/Logo/Logo-va-white.png">
     <link rel="stylesheet" href="css/style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +37,9 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="gallery.html">Portfolio</a></li>
-                <li><a href="index.html#classes">Academy</a></li>
+                <li><a href="murals.html">Wall Murals</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="journeys.html">Journeys</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
             <div class="hamburger"><span></span><span></span><span></span></div>
@@ -35,48 +49,19 @@
     <header class="section-padding" style="padding-top: 120px; background: #f1f5f9; text-align: center;">
         <h1 class="section-title">Student <span class="highlight">Gallery</span></h1>
         <p class="section-subtitle">A showcase of the amazing progress made by my students.</p>
+        <p class="page-intro">Every piece here was made by a Thevenkyart Academy student — kids from age 5 and adults learning pencil sketching, shading, colour pencil and painting in our online art classes and at our Hyderabad studio. Follow individual progress on the <a href="journeys.html">Student Journeys</a> page, or find the right level on our <a href="courses.html">art courses</a> page.</p>
     </header>
 
     <section class="section-padding" style="background: white;">
         <div class="container">
 
-            <div class="student-grid">
-
-                <div class="student-card">
-                    <img src="assets/images/Students/Dhanushya-landscape-all.jpg" alt="Student Work">
-                    <div class="student-info">
-                        <h4>Dhanushya, Age 16</h4>
-                        <p>Pencil SketchingShading Course</p>
-                    </div>
-                </div>
-
-                <div class="student-card">
-                    <img src="assets/images/Students/1.jpg" alt="Student Work">
-                    <div class="student-info">
-                        <h4>Prathyusha, Age 23</h4>
-                        <p>Pencil Sketching</p>
-                    </div>
-                </div>
-                <div class="student-card">
-                    <img src="assets/images/Students/suhas-all-landscape.png" alt="Student Work">
-                    <div class="student-info">
-                        <h4>Sughas, Age 15</h4>
-                        <p>Pencil Sketching</p>
-                    </div>
-                </div>
-                <div class="student-card">
-                    <img src="assets/images/Students/Dhruthi.png" alt="Student Work">
-                    <div class="student-info">
-                        <h4>Dhruthi, Age 10</h4>
-                        <p>Pencil Sketching</p>
-                    </div>
-                </div>
-
+            <div class="student-grid" id="studentGrid">
+                <p style="text-align:center; grid-column: 1/-1; color:#999;">Loading students...</p>
             </div>
 
             <div style="text-align: center; margin-top: 60px;">
                 <p style="margin-bottom: 20px;">Want to see your art here?</p>
-                <a href="index.html#classes" class="btn btn-primary">Join a Class</a>
+                <a href="courses.html" class="btn btn-primary">Join a Class</a>
             </div>
 
         </div>
@@ -98,6 +83,47 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script>
+        // Render student cards from data/students.json.
+        // main.js's lightbox/progressive-loading hooks run on DOMContentLoaded (before this
+        // fetch resolves), so we re-run the same wiring here for the dynamically added cards.
+        (function () {
+            const grid = document.getElementById('studentGrid');
+
+            fetch('data/students.json')
+                .then(res => res.json())
+                .then(data => {
+                    const students = data.students || [];
+                    if (!students.length) {
+                        grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color:#999;">No students listed yet.</p>';
+                        return;
+                    }
+
+                    grid.innerHTML = students.map(s => `
+                        <a class="student-card hover-scale" href="profile.html?id=${encodeURIComponent(s.id)}" style="text-decoration:none; display:block;">
+                            <img loading="lazy" src="${s.images[0]}" alt="${s.name}'s artwork">
+                            <div class="student-info">
+                                <h4>${s.name}, Age ${s.age}</h4>
+                                <p>${s.course}</p>
+                            </div>
+                        </a>
+                    `).join('');
+
+                    grid.querySelectorAll('img').forEach(img => {
+                        img.decoding = 'async';
+                        if (img.complete && img.naturalWidth > 0) {
+                            img.classList.add('img-loaded');
+                        } else {
+                            img.addEventListener('load', () => img.classList.add('img-loaded'), { once: true });
+                            img.addEventListener('error', () => img.classList.add('img-loaded'), { once: true });
+                        }
+                    });
+                })
+                .catch(() => {
+                    grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color:#999;">Could not load students right now.</p>';
+                });
+        })();
+    </script>
 </body>
 
 </html>

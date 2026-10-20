@@ -1,0 +1,73 @@
+{
+  "students": [
+    {
+      "id": "dhanushya",
+      "name": "Dhanushya",
+      "age": 16,
+      "level": "advanced",
+      "course": "Advanced Pencil Sketching",
+      "mode": ["online"],
+      "bio": "Dhanushya has mastered realistic shading and portrait work, moving from basic outlines to hyper-realistic pencil portraits.",
+      "images": [
+        "assets/images/Students/Dhanushya-landscape-all.jpg",
+        "assets/images/Students/Dhanushya-all.jpg",
+        "assets/images/Students/dhanushya-alluarjun.jpeg",
+        "assets/images/Students/dhanushya-best-work.png"
+      ],
+      "journey": {
+        "earlier": "assets/images/Students/Dhanushya-landscape-all.jpg",
+        "recent": "assets/images/Students/dhanushya-best-work.png"
+      }
+    },
+    {
+      "id": "prathyusha",
+      "name": "Prathyusha",
+      "age": 23,
+      "level": "intermediate",
+      "course": "Pencil Sketching",
+      "mode": ["online"],
+      "bio": "Prathyusha is focused on fine details and texture work, building confidence with each new piece.",
+      "images": [
+        "assets/images/Students/1.jpg",
+        "assets/images/Students/prathyuha-holding-art.png"
+      ],
+      "journey": {
+        "earlier": "assets/images/Students/1.jpg",
+        "recent": "assets/images/Students/prathyuha-holding-art.png"
+      }
+    },
+    {
+      "id": "sughas",
+      "name": "Sughas",
+      "age": 15,
+      "level": "beginner",
+      "course": "Pencil Sketching",
+      "mode": ["online"],
+      "bio": "Sughas started with simple shapes and lines and is now working on full compositions.",
+      "images": [
+        "assets/images/Students/suhas-all-landscape.png"
+      ],
+      "journey": {
+        "earlier": "assets/images/Students/suhas-all-landscape.png",
+        "recent": "assets/images/Students/suhas-all-landscape.png"
+      }
+    },
+    {
+      "id": "dhruthi",
+      "name": "Dhruthi",
+      "age": 10,
+      "level": "beginner",
+      "course": "Pencil Sketching",
+      "mode": ["offline"],
+      "bio": "Dhruthi joined the offline studio classes and has grown steadily in confidence with every session.",
+      "images": [
+        "assets/images/Students/Dhruthi.png",
+        "assets/images/Students/Dhruthi-portait.jpg"
+      ],
+      "journey": {
+        "earlier": "assets/images/Students/Dhruthi.png",
+        "recent": "assets/images/Students/Dhruthi-portait.jpg"
+      }
+    }
+  ]
+}
