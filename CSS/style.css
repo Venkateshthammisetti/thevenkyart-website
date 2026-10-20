@@ -426,6 +426,15 @@ h3 {
 .slide-6 {
   background-image: url("../assets/images/Hero-images-slideshow/budha2-slide.PNG");
 }
+/* Real student photos — online & offline classes */
+.slide-7 {
+  background-image: url("../assets/images/Hero-images-slideshow/student-online-slide.jpg");
+  background-position: center 10%;
+}
+.slide-8 {
+  background-image: url("../assets/images/Hero-images-slideshow/student-offline-slide.jpg");
+  background-position: center 50%;
+}
 
 /* --- BUTTONS --- */
 .cta-container {
@@ -564,6 +573,55 @@ h3 {
   max-width: 800px;
 }
 
+/* Academy photo grid — real online & offline student photos ("other place") */
+.academy-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  max-width: 640px;
+  margin: 0 auto 2rem auto;
+}
+.academy-photo {
+  position: relative;
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+.academy-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: none;
+  max-width: 100%;
+  transition: var(--transition);
+}
+.academy-photo:hover img {
+  transform: scale(1.06);
+}
+.academy-photo figcaption {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: white;
+}
+.academy-photo--online figcaption {
+  background: var(--primary-color);
+}
+.academy-photo--offline figcaption {
+  background: var(--text-dark);
+}
+
 /* =========================================
    5. CLASSES SECTION
    ========================================= */
@@ -616,6 +674,43 @@ h3 {
   font-weight: bold;
   font-size: 0.9rem;
 }
+
+/* Online / Offline mode tags on class cards */
+.mode-tags {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+.mode-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.mode-tag.online {
+  background: rgba(255, 59, 48, 0.1);
+  color: var(--primary-color);
+}
+.mode-tag.offline {
+  background: rgba(9, 9, 11, 0.08);
+  color: var(--dark-bg);
+}
+.class-age {
+  display: block;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
 .btn-card {
   display: inline-block;
   padding: 10px 25px;
@@ -655,6 +750,23 @@ h3 {
 }
 .filter-btn.active,
 .filter-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.journey-filter-btn {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #666;
+  transition: var(--transition);
+}
+.journey-filter-btn.active,
+.journey-filter-btn:hover {
   background-color: var(--primary-color);
   color: white;
   border-color: var(--primary-color);
@@ -1182,6 +1294,12 @@ footer {
     max-width: 350px; /* Small Image Fix */
     margin: 0 auto 15px auto;
     display: block;
+  }
+
+  .academy-photo-grid {
+    max-width: 380px;
+    margin: 0 auto 20px auto;
+    gap: 10px;
   }
 
   .about-content {
@@ -2057,6 +2175,96 @@ footer {
   }
 }
 
+/* =========================================
+   13. STUDENT JOURNEYS (Earlier / Recent)
+   ========================================= */
+.journey-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+.journey-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.journey-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.journey-images figure {
+  position: relative;
+  margin: 0;
+}
+.journey-images img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+.journey-images figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(9, 9, 11, 0.65);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 6px 0;
+}
+.journey-images figure:first-child::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+}
+.journey-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--primary-color);
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.journey-info {
+  padding: 18px 20px;
+  border-top: 3px solid var(--primary-color);
+}
+.journey-info h4 {
+  color: var(--dark-bg);
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+.journey-info .journey-meta {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.journey-info p.journey-story {
+  color: #666;
+  font-size: 0.88rem;
+  margin: 0;
+}
+
 /* Pillar 5: Footer link style */
 footer a {
   transition: color 0.3s ease;
@@ -2064,4 +2272,80 @@ footer a {
 
 footer a:hover {
   color: white !important;
+}
+
+/* ===== Courses FAQ ===== */
+.faq-section {
+  background: var(--light-bg);
+}
+
+.faq-list {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background: var(--surface-light);
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0 20px;
+  transition: var(--transition);
+}
+
+.faq-item[open] {
+  border-color: var(--primary-color);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 18px 28px 18px 0;
+  position: relative;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: var(--primary-color);
+}
+
+.faq-item[open] summary::after {
+  content: "\2013";
+}
+
+.faq-item p {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.faq-item a {
+  color: var(--primary-color);
+}
+
+/* ===== SEO intro copy on gallery-style pages ===== */
+.page-intro {
+  max-width: 760px;
+  margin: -30px auto 30px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  text-align: center;
+}
+
+.page-intro a {
+  color: var(--primary-color);
+  font-weight: 600;
 }

@@ -1,0 +1,39 @@
+{
+  "testimonials": [
+    {
+      "name": "Dhanushya",
+      "role": "student",
+      "levelLabel": "Advanced Course",
+      "quote": "I never thought I could draw realistic portraits until I joined Venky's class. His patience makes complex things look easy.",
+      "avatar": "assets/images/classes/student-girl-icon.png"
+    },
+    {
+      "name": "Prathyusha",
+      "role": "student",
+      "levelLabel": "Intermediate",
+      "quote": "The Intermediate art course was a game-changer.",
+      "avatar": "assets/images/classes/student-girl-icon.png"
+    },
+    {
+      "name": "Naren",
+      "role": "parent",
+      "levelLabel": "Parent",
+      "quote": "My daughter loves the weekend classes. Highly recommended for kids!",
+      "avatar": "assets/images/classes/parent-icon.png"
+    },
+    {
+      "name": "Lishitha",
+      "role": "student",
+      "levelLabel": "Intermediate",
+      "quote": "Venky sir explains the logic behind light and shadow so well. My engineering brain finally understood art!",
+      "avatar": "assets/images/classes/student-girl-icon.png"
+    },
+    {
+      "name": "Krisha",
+      "role": "parent",
+      "levelLabel": "Parent",
+      "quote": "The online sessions are crystal clear. It feels just like a physical classroom because of the multi-camera setup.",
+      "avatar": "assets/images/classes/parent-icon.png"
+    }
+  ]
+}

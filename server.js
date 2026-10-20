@@ -17,10 +17,13 @@ const mimeTypes = {
   ".svg": "image/svg+xml",
   ".webp": "image/webp",
   ".ico": "image/x-icon",
+  ".json": "application/json; charset=utf-8",
+  ".txt": "text/plain; charset=utf-8",
+  ".xml": "application/xml; charset=utf-8",
 };
 
 const IMAGE_EXTS = new Set([".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg", ".ico"]);
-const COMPRESSIBLE_EXTS = new Set([".html", ".css", ".js", ".svg"]);
+const COMPRESSIBLE_EXTS = new Set([".html", ".css", ".js", ".svg", ".json", ".txt", ".xml"]);
 
 const server = http.createServer((req, res) => {
   const urlPath = req.url.split("?")[0];

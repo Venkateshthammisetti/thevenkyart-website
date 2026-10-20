@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /node_modules/
+Disallow: /assets/images/_originals/
+
+Sitemap: https://thevenkyart.com/sitemap.xml

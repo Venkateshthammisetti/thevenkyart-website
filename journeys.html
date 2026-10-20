@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Journeys – Before &amp; After | Thevenkyart Academy</title>
+  <meta name="description"
+    content="See how Thevenkyart Academy students progress from their earlier work to recent work — real before-and-after journeys from our online and offline art classes.">
+  <link rel="canonical" href="https://thevenkyart.com/journeys.html">
+  <meta property="og:site_name" content="Thevenkyart">
+  <meta property="og:title" content="Student Journeys – Before &amp; After | Thevenkyart Academy">
+  <meta property="og:description" content="See how Thevenkyart Academy students progress from their earlier work to recent work — real before-and-after journeys from our online and offline art classes.">
+  <meta property="og:image" content="https://thevenkyart.com/assets/images/Students/offline-student-drawing.jpg">
+  <meta property="og:url" content="https://thevenkyart.com/journeys.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="assets/images/Logo/Logo-va-white.png">
+
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <nav class="navbar" data-animate="fade-down">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="assets/images/Logo/Logo-va-white.png" alt="Thevenkyart Logo" width="689" height="609" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="murals.html">Wall Murals</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="journeys.html" class="active">Journeys</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <header class="section-padding" style="padding-top: 120px; background: #f1f5f9; text-align: center;">
+    <h1 class="section-title">Student <span class="highlight">Journeys</span></h1>
+    <p class="section-subtitle">From earlier work to recent work — real progress from real students.</p>
+    <p class="page-intro">Each journey puts a student&#39;s earlier drawing next to their recent work, so you can see how lines, proportion, shading and colour improve with structured practice. These students learn in our Beginner, Intermediate and Advanced <a href="courses.html">art classes, online and in Hyderabad</a>. See more finished pieces in the <a href="students.html">student artwork gallery</a>.</p>
+
+    <div class="portfolio-filters">
+      <button class="journey-filter-btn active" data-filter="all">All</button>
+      <button class="journey-filter-btn" data-filter="beginner">Beginner</button>
+      <button class="journey-filter-btn" data-filter="intermediate">Intermediate</button>
+      <button class="journey-filter-btn" data-filter="advanced">Advanced</button>
+    </div>
+  </header>
+
+  <section class="section-padding" style="background: white;">
+    <div class="container">
+      <div class="journey-grid" id="journeyGrid">
+        <p style="text-align:center; grid-column: 1/-1; color:#999;">Loading student journeys...</p>
+      </div>
+
+      <div style="text-align: center; margin-top: 60px;">
+        <p style="margin-bottom: 20px;">Ready to start your own journey?</p>
+        <a href="https://wa.me/919963613404?text=Hi%20Venky,%20I%20want%20to%20book%20a%20trial%20class"
+          target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a Trial Class</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Thevenkyart. All rights reserved.</p>
+  </footer>
+
+  <a href="https://wa.me/919963613404" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <img src="assets/images/Logo/whatsapp-icon.webp" alt="Chat on WhatsApp" />
+  </a>
+
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      const grid = document.getElementById('journeyGrid');
+      const filterBtns = document.querySelectorAll('.journey-filter-btn');
+      let allJourneys = [];
+
+      function levelLabel(level) {
+        return level.charAt(0).toUpperCase() + level.slice(1);
+      }
+
+      function modeTagHtml(mode) {
+        const cls = mode === 'online' ? 'online' : 'offline';
+        const label = mode === 'online' ? 'Online' : 'Offline';
+        return `<span class="mode-tag ${cls}">${label}</span>`;
+      }
+
+      function renderJourneys(journeys) {
+        if (!journeys.length) {
+          grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color:#999;">No journeys in this level yet.</p>';
+          return;
+        }
+        grid.innerHTML = journeys.map(j => `
+          <div class="journey-card hover-float" data-animate="fade-up">
+            <div class="journey-images">
+              <figure>
+                <img loading="lazy" src="${j.earlier}" alt="${j.name} earlier artwork">
+                <figcaption>Earlier Work</figcaption>
+              </figure>
+              <figure>
+                <img loading="lazy" src="${j.recent}" alt="${j.name} recent artwork">
+                <figcaption>Recent Work</figcaption>
+              </figure>
+              <span class="journey-arrow">&#8594;</span>
+            </div>
+            <div class="journey-info">
+              <h4>${j.name}</h4>
+              <div class="journey-meta">
+                <span class="mode-tag offline" style="background:rgba(255,59,48,0.1); color:var(--primary-color);">${levelLabel(j.level)}</span>
+                ${modeTagHtml(j.mode)}
+              </div>
+              <p class="journey-story">${j.story}</p>
+            </div>
+          </div>
+        `).join('');
+
+        // Re-run progressive image loading + scroll animation for newly injected cards
+        grid.querySelectorAll('img').forEach(img => {
+          img.decoding = 'async';
+          if (img.complete && img.naturalWidth > 0) {
+            img.classList.add('img-loaded');
+          } else {
+            img.addEventListener('load', () => img.classList.add('img-loaded'), { once: true });
+            img.addEventListener('error', () => img.classList.add('img-loaded'), { once: true });
+          }
+        });
+      }
+
+      fetch('data/journeys.json')
+        .then(res => res.json())
+        .then(data => {
+          allJourneys = data.journeys || [];
+          renderJourneys(allJourneys);
+        })
+        .catch(() => {
+          grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color:#999;">Could not load journeys right now.</p>';
+        });
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.getAttribute('data-filter');
+          const filtered = filter === 'all' ? allJourneys : allJourneys.filter(j => j.level === filter);
+          renderJourneys(filtered);
+        });
+      });
+    })();
+  </script>
+</body>
+
+</html>
