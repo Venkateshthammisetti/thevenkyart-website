@@ -1,85 +1,183 @@
 document.addEventListener("DOMContentLoaded", () => {
   // ==========================================
-  // 0. LOADING PRELOADER (first visit only)
+  // 0. LOADING PRELOADER (splash intro)
   // ==========================================
+  // Plays on every fresh visit and every reload of the home page. It is only
+  // skipped when arriving from another page of this site (e.g. tapping
+  // "Home" from Courses), so moving around the site never replays it.
   const loader = document.getElementById("loader");
-  const words = document.querySelectorAll(".loader-words span");
+  const words = loader ? loader.querySelectorAll(".loader-words span") : [];
+
+  const finishIntro = () => {
+    document.body.classList.remove("no-scroll", "page-zoomed", "intro-running");
+    document.body.classList.add("hero-ready");
+  };
 
   if (loader && words.length > 0) {
-    const alreadySeen = sessionStorage.getItem("loaderShown");
+    const navEntry = performance.getEntriesByType("navigation")[0];
+    const isReload = navEntry && navEntry.type === "reload";
+    let fromThisSite = false;
+    try {
+      fromThisSite =
+        !!document.referrer &&
+        new URL(document.referrer).origin === window.location.origin;
+    } catch (e) {}
 
-    if (alreadySeen) {
-      // Skip animation on return visits — hide instantly
+    if (fromThisSite && !isReload) {
       loader.style.display = "none";
-      document.body.classList.remove("no-scroll", "page-zoomed");
+      finishIntro();
     } else {
-      // Mark as seen immediately so navigating away mid-animation still counts
-      sessionStorage.setItem("loaderShown", "1");
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const brand = loader.querySelector(".loader-brand");
+      const stroke = loader.querySelector(".loader-stroke");
 
-      let currentWord = 0;
-      const wordInterval = 400;
+      // Wordmark letters rise one after another
+      brand.innerHTML = Array.from(brand.textContent)
+        .map((ch, i) => `<span style="--i:${i}">${ch}</span>`)
+        .join("");
 
-      document.body.classList.add("no-scroll");
-      document.body.classList.add("page-zoomed");
+      const WORD_STEP = reduceMotion ? 0 : 420;
+      const BRAND_HOLD = reduceMotion ? 600 : 1100;
+      const total = 150 + words.length * WORD_STEP + BRAND_HOLD;
 
+      document.body.classList.add("no-scroll", "page-zoomed", "intro-running");
+      loader.style.setProperty("--dur", `${total}ms`);
+      requestAnimationFrame(() => loader.classList.add("is-running"));
+
+      // Redraw the brush stroke in a new colour
+      const drawStroke = (colour) => {
+        stroke.style.setProperty("--stroke-c", colour);
+        stroke.classList.remove("draw");
+        void stroke.getBoundingClientRect(); // restart the animation
+        stroke.classList.add("draw");
+      };
+
+      const exitIntro = () => {
+        loader.classList.add("exit");
+        // Hero starts settling from its zoom as the wordmark flies past;
+        // its text arrives once the wordmark has flown past
+        document.body.classList.remove("page-zoomed");
+        setTimeout(finishIntro, 700);
+        setTimeout(() => {
+          loader.style.display = "none";
+        }, 1000);
+      };
+
+      const showBrand = () => {
+        loader.classList.add("show-brand");
+        drawStroke("var(--primary-color)");
+        setTimeout(exitIntro, BRAND_HOLD);
+      };
+
+      let current = 0;
       const showNextWord = () => {
-        if (currentWord > 0 && currentWord < words.length) {
-          words[currentWord - 1].classList.remove("active");
+        if (current > 0) {
+          words[current - 1].classList.remove("active");
+          words[current - 1].classList.add("out");
         }
-
-        if (currentWord < words.length) {
-          words[currentWord].classList.add("active");
-          currentWord++;
-
-          if (currentWord === words.length) {
-            setTimeout(showNextWord, 800);
-          } else {
-            setTimeout(showNextWord, wordInterval);
-          }
+        if (current < words.length) {
+          const word = words[current];
+          word.classList.add("active");
+          drawStroke(getComputedStyle(word).getPropertyValue("--c").trim());
+          current++;
+          setTimeout(showNextWord, WORD_STEP);
         } else {
-          words[words.length - 1].classList.add("zoom-out");
-
-          const spinner = document.querySelector(".loader-spinner");
-          if (spinner) spinner.style.opacity = "0";
-
-          setTimeout(() => {
-            loader.classList.add("hidden");
-            document.body.classList.remove("page-zoomed");
-
-            setTimeout(() => {
-              document.body.classList.remove("no-scroll");
-              loader.style.display = "none";
-            }, 800);
-          }, 400);
+          showBrand();
         }
       };
 
-      setTimeout(showNextWord, 100);
+      if (reduceMotion) showBrand();
+      else setTimeout(showNextWord, 150);
     }
+  } else {
+    document.body.classList.add("hero-ready");
   }
 
   // ==========================================
   // 1. NAVIGATION BAR (Mobile Menu)
   // ==========================================
+  // The phone menu is built as its own full-screen layer on <body>. Keeping it
+  // inside the navbar let the pill's backdrop-filter become its containing
+  // block, which left a 20px dark strip of the "hidden" panel on screen.
+  const navbar = document.querySelector(".navbar");
   const hamburger = document.querySelector(".hamburger");
   const navLinks = document.querySelector(".nav-links");
 
-  if (hamburger) {
-    hamburger.addEventListener("click", () => {
-      navLinks.classList.toggle("nav-active");
-      hamburger.classList.toggle("toggle");
+  if (hamburger && navLinks) {
+    const menu = document.createElement("div");
+    menu.className = "m-menu";
+    menu.id = "mobileMenu";
+    menu.setAttribute("aria-hidden", "true");
+
+    const list = document.createElement("ul");
+    list.className = "m-menu__links";
+    navLinks.querySelectorAll("a").forEach((a, i) => {
+      const li = document.createElement("li");
+      li.style.setProperty("--i", i);
+      const link = a.cloneNode(true);
+      link.removeAttribute("style");
+      li.appendChild(link);
+      list.appendChild(li);
     });
 
-    // Close menu when a link is clicked
-    const links = document.querySelectorAll(".nav-links li a");
-    links.forEach((link) => {
-      link.addEventListener("click", () => {
-        if (navLinks.classList.contains("nav-active")) {
-          navLinks.classList.remove("nav-active");
-          hamburger.classList.remove("toggle");
-        }
-      });
+    const foot = document.createElement("div");
+    foot.className = "m-menu__foot";
+    foot.style.setProperty("--i", list.children.length);
+    foot.innerHTML =
+      '<a class="btn btn-primary" target="_blank" rel="noopener noreferrer" ' +
+      'href="https://wa.me/919963613404?text=Hi%20Venky,%20We%20want%20to%20connect%20for%20a%20demo%20class">Book a free demo class</a>' +
+      '<a class="m-menu__mail" href="mailto:contact@thevenkyart.com">contact@thevenkyart.com</a>';
+
+    menu.append(list, foot);
+    document.body.appendChild(menu);
+
+    hamburger.setAttribute("role", "button");
+    hamburger.setAttribute("tabindex", "0");
+    hamburger.setAttribute("aria-label", "Open menu");
+    hamburger.setAttribute("aria-controls", "mobileMenu");
+    hamburger.setAttribute("aria-expanded", "false");
+
+    const setMenu = (open) => {
+      menu.classList.toggle("is-open", open);
+      hamburger.classList.toggle("toggle", open);
+      document.body.classList.toggle("menu-open", open);
+      menu.setAttribute("aria-hidden", String(!open));
+      hamburger.setAttribute("aria-expanded", String(open));
+      hamburger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+
+    hamburger.addEventListener("click", () =>
+      setMenu(!menu.classList.contains("is-open")),
+    );
+    hamburger.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        hamburger.click();
+      }
     });
+    menu.addEventListener("click", (e) => {
+      if (e.target.closest("a")) setMenu(false);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && menu.classList.contains("is-open")) setMenu(false);
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768 && menu.classList.contains("is-open")) setMenu(false);
+    });
+  }
+
+  // Navbar sits clear over a dark hero, then turns solid once the page scrolls
+  if (navbar) {
+    const first = navbar.nextElementSibling;
+    if (first && first.matches(".hero, .mural-hero")) {
+      document.body.classList.add("has-hero");
+    }
+    const onScroll = () =>
+      navbar.classList.toggle("scrolled", window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
   }
 
   // ==========================================
@@ -435,28 +533,81 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Position dots under the swipeable testimonial row (shown on phones)
+  if (track) {
+    const cards = track.querySelectorAll(".testimonial-card");
+    const dots = document.createElement("div");
+    dots.className = "carousel-dots";
+    dots.setAttribute("aria-hidden", "true");
+    cards.forEach(() => dots.appendChild(document.createElement("span")));
+    track.parentElement.after(dots);
+
+    const markDot = () => {
+      const centre = track.scrollLeft + track.clientWidth / 2;
+      let nearest = 0;
+      let best = Infinity;
+      cards.forEach((card, i) => {
+        const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - centre);
+        if (d < best) {
+          best = d;
+          nearest = i;
+        }
+      });
+      dots.querySelectorAll("span").forEach((dot, i) =>
+        dot.classList.toggle("active", i === nearest),
+      );
+    };
+    markDot();
+    track.addEventListener("scroll", markDot, { passive: true });
+  }
+
   // ==========================================
   // 6. SCROLL ANIMATION OBSERVER
   // ==========================================
-  const observerOptions = {
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.15, // Trigger when 15% of the element is visible
-  };
-
-  const scrollObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-animated");
-        // Stop observing once animated
-        observer.unobserve(entry.target);
-      }
+  // Grid children enter one after another instead of the grid fading as a block
+  document
+    .querySelectorAll(
+      ".portfolio-grid, .class-grid, .features-grid, .curriculum-grid, .academy-photo-grid, .academy-stats",
+    )
+    .forEach((grid) => {
+      if (grid.hasAttribute("data-animate")) return;
+      Array.from(grid.children).forEach((child, i) => {
+        if (child.hasAttribute("data-animate")) return;
+        child.setAttribute("data-animate", "fade-up");
+        child.style.animationDelay = `${(i % 2) * 90 + Math.min(i, 3) * 40}ms`;
+      });
     });
-  }, observerOptions);
 
-  // Get all elements with the data-animate attribute
-  const animatedElements = document.querySelectorAll("[data-animate]");
-  animatedElements.forEach((el) => scrollObserver.observe(el));
+  const scrollObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-animated");
+          // Stop observing once animated
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { root: null, rootMargin: "0px 0px -8% 0px", threshold: 0.12 },
+  );
+
+  document
+    .querySelectorAll("[data-animate]")
+    .forEach((el) => scrollObserver.observe(el));
+
+  // Cards rendered later from JSON (journeys, students) also carry
+  // data-animate; without this they stayed at opacity 0.
+  new MutationObserver((mutations) => {
+    mutations.forEach((m) =>
+      m.addedNodes.forEach((node) => {
+        if (node.nodeType !== 1) return;
+        if (node.matches("[data-animate]")) scrollObserver.observe(node);
+        node
+          .querySelectorAll("[data-animate]")
+          .forEach((el) => scrollObserver.observe(el));
+      }),
+    );
+  }).observe(document.body, { childList: true, subtree: true });
 
   // ==========================================
   // 7. INTERACTIVE HERO TITLE (Scatter Effect)
@@ -519,10 +670,17 @@ document.addEventListener("DOMContentLoaded", () => {
   heroTitles.forEach((title) => {
     wrapCharacters(title);
     title.style.perspective = "1000px";
+    // Letters rise in sequence once the preloader has gone (CSS: .title-rise)
+    title.querySelectorAll(".scatter-char").forEach((char, i) => {
+      char.style.setProperty("--d", `${120 + i * 28}ms`);
+    });
+    title.classList.add("title-rise");
   });
 
-  // Mousemove listener to scatter characters
-  document.addEventListener("mousemove", (e) => {
+  // Mousemove listener to scatter characters (pointer devices only — on
+  // touch screens the emulated mousemove from a tap would scatter the title)
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (canHover) document.addEventListener("mousemove", (e) => {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
     const triggerDistance = 150; // Radius representing the cursor field
