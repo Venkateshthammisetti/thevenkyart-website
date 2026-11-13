@@ -1,0 +1,274 @@
+/* =========================================
+   LIQUID GLASS
+   Apple's Liquid Glass, by glisse (https://github.com/0kzh/glisse, MIT).
+   js/glisse.js turns each surface listed in js/liquid-glass.js into glass:
+   it adds .lg-glass, paints the lit rim into --lg-rim, and in Chromium
+   bends the backdrop through --lg-filter. This file decides how each
+   surface looks. Load it after style.css.
+
+   Per-surface knobs:
+     --lg-glass   the glass's own tint (keep it translucent)
+     --lg-blur    frost; Liquid Glass is clear, so keep it small
+     --lg-lift    extra shadow under the glass
+   ========================================= */
+
+/* ---------- glisse's palette (light), and a dark one ---------- */
+:root {
+  --lg-foreground: rgb(0 0 0 / 0.88);
+  --lg-glass: rgb(255 255 255 / 0.6);
+  --lg-edge: rgb(0 0 0 / 0.08);
+  --lg-drop: rgb(0 0 0 / 0.06);
+  --lg-lens-shine: -1.5;
+  --lg-rim-shine: 0.3;
+}
+
+.nav-container,
+.navbar,
+.btn-secondary,
+.btn-card,
+.test-btn,
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next,
+.lightbox-zoom-btn,
+.academy-photo--offline figcaption {
+  --lg-edge: rgb(255 255 255 / 0.1);
+  --lg-drop: transparent;
+  --lg-lens-shine: 1;
+  --lg-rim-shine: 0.16;
+}
+
+/* ---------- glisse's glass ---------- */
+:where(.lg-glass) {
+  position: relative;
+}
+
+.lg-glass.lg-glass {
+  background-color: var(--lg-glass);
+  background-image: var(--lg-rim, none);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  -webkit-backdrop-filter: blur(var(--lg-blur, 3px)) var(--lg-filter, saturate(1.5));
+  backdrop-filter: blur(var(--lg-blur, 3px)) var(--lg-filter, saturate(1.5));
+  box-shadow:
+    inset 0 0 0 0.5px var(--lg-edge),
+    0 1px 3px var(--lg-drop),
+    var(--lg-lift, 0 0 #0000);
+}
+
+/* Glass whose rim is painted draws its edge line there, under the light. */
+.lg-glass.lg-glass[data-rim] {
+  box-shadow:
+    0 1px 3px var(--lg-drop),
+    var(--lg-lift, 0 0 #0000);
+}
+
+/* Pressable glass is scaled by a spring every frame, so it must not also
+   ease scale/translate through the site's `transition: all`. */
+.lg-glass.lg-glass[data-lg-press] {
+  transition-property: background-color, color, border-color, box-shadow, opacity, transform;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The soft light that follows a finger or pointer while pressed. */
+:where(.lg-glass[data-lg-press])::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle 240px at var(--lg-x, 50%) var(--lg-y, 50%),
+    rgb(255 255 255 / 0.18),
+    rgb(255 255 255 / 0.08) 50%,
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 220ms ease-in-out;
+}
+:where(.lg-glass[data-pressed])::after {
+  opacity: 1;
+  transition-duration: 0s;
+}
+
+/* =========================================
+   SURFACES
+   ========================================= */
+
+/* ---------- Navigation ---------- */
+@media (min-width: 769px) {
+  .nav-container.lg-glass {
+    --lg-glass: rgb(14 14 16 / 0.62);
+    --lg-blur: 6px;
+    --lg-lift: 0 8px 32px rgb(0 0 0 / 0.16);
+    border-color: transparent;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  /* Over a hero photo, before scrolling, the pill is nearly clear. */
+  body.has-hero .navbar:not(.scrolled) .nav-container.lg-glass {
+    --lg-glass: rgb(14 14 16 / 0.18);
+  }
+  /* On desktop the bar itself is only a frame for the pill. */
+  .navbar.lg-glass.lg-glass {
+    background: none;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* On phones the whole bar turns to glass once the page scrolls. */
+  .navbar.lg-glass {
+    --lg-glass: rgb(9 9 11 / 0.6);
+    --lg-blur: 8px;
+  }
+  body.has-hero .navbar.lg-glass:not(.scrolled),
+  body.menu-open .navbar.lg-glass {
+    background: none;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .nav-container.lg-glass.lg-glass {
+    background: none;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* ---------- Buttons: glass capsules ---------- */
+.btn.lg-glass,
+.btn-card.lg-glass {
+  border-radius: 999px;
+}
+
+/* Primary: red-tinted glass. */
+.btn-primary.lg-glass {
+  --lg-glass: rgb(255 59 48 / 0.86);
+  --lg-lift: 0 10px 22px -10px rgb(255 59 48 / 0.9);
+  border-color: transparent;
+}
+.btn-primary.lg-glass:hover {
+  --lg-glass: rgb(255 30 17 / 0.94);
+  --lg-lift: 0 15px 25px -10px rgb(255 30 17 / 0.9);
+  border-color: transparent;
+}
+
+/* Secondary: clear glass over photos. */
+.btn-secondary.lg-glass {
+  --lg-glass: rgb(255 255 255 / 0.12);
+  --lg-blur: 4px;
+  border-color: transparent;
+}
+.btn-secondary.lg-glass:hover {
+  --lg-glass: rgb(255 255 255 / 0.92);
+  color: var(--dark-bg);
+}
+
+/* Course cards: dark glass, red on hover. */
+.btn-card.lg-glass {
+  --lg-glass: rgb(9 9 11 / 0.86);
+}
+.btn-card.lg-glass:hover {
+  --lg-glass: rgb(255 59 48 / 0.9);
+}
+
+/* Banner call to action on the orange gradient. */
+.demo-cta-btn.lg-glass {
+  --lg-glass: rgb(255 255 255 / 0.85);
+  --lg-lift: 0 6px 18px rgb(120 20 0 / 0.18);
+}
+
+/* ---------- Filter pills ---------- */
+.filter-btn.lg-glass,
+.journey-filter-btn.lg-glass {
+  --lg-glass: rgb(255 255 255 / 0.7);
+  --lg-lift: 0 2px 10px rgb(15 23 42 / 0.07);
+  border-color: transparent;
+}
+.filter-btn.lg-glass:hover,
+.journey-filter-btn.lg-glass:hover {
+  --lg-glass: rgb(255 59 48 / 0.12);
+  color: var(--primary-color);
+  border-color: transparent;
+}
+.filter-btn.lg-glass.active,
+.journey-filter-btn.lg-glass.active {
+  --lg-glass: rgb(255 59 48 / 0.88);
+  --lg-lift: 0 8px 18px -8px rgb(255 59 48 / 0.8);
+  color: white;
+  border-color: transparent;
+}
+
+/* ---------- Testimonial arrows ---------- */
+.test-btn.lg-glass {
+  --lg-glass: rgb(9 9 11 / 0.82);
+}
+.test-btn.lg-glass:hover {
+  --lg-glass: rgb(255 59 48 / 0.9);
+}
+
+/* ---------- Lightbox controls ---------- */
+.lightbox-close.lg-glass {
+  top: 20px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 30px;
+  opacity: 1;
+}
+.lightbox-close.lg-glass,
+.lightbox-prev.lg-glass,
+.lightbox-next.lg-glass,
+.lightbox-zoom-btn.lg-glass {
+  --lg-glass: rgb(40 40 44 / 0.35);
+  --lg-blur: 4px;
+  border-color: transparent;
+}
+.lightbox-close.lg-glass:hover,
+.lightbox-prev.lg-glass:hover,
+.lightbox-next.lg-glass:hover,
+.lightbox-zoom-btn.lg-glass:hover {
+  --lg-glass: rgb(255 255 255 / 0.2);
+}
+.lightbox-zoom-btn.lg-glass:disabled {
+  --lg-glass: rgb(40 40 44 / 0.2);
+}
+
+/* ---------- Floating WhatsApp ---------- */
+.whatsapp-float.lg-glass {
+  --lg-glass: rgb(37 211 102 / 0.8);
+  --lg-blur: 4px;
+}
+
+/* ---------- Badges over photos ---------- */
+.experience-badge.lg-glass {
+  --lg-glass: rgb(255 59 48 / 0.78);
+  --lg-blur: 6px;
+  --lg-lift: 0 12px 28px rgb(0 0 0 / 0.22);
+  border: 0;
+}
+
+.academy-photo--online figcaption.lg-glass {
+  --lg-glass: rgb(255 59 48 / 0.78);
+}
+.academy-photo--offline figcaption.lg-glass {
+  --lg-glass: rgb(24 24 27 / 0.5);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .lg-glass.lg-glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}

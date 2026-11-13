@@ -1,5 +1,11 @@
 {
   "dependencies": {
     "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.12"
+  },
+  "scripts": {
+    "build:glass": "esbuild vendor/glisse/vanilla.ts --bundle --minify --format=iife --global-name=Glisse --target=es2020 --legal-comments=inline --banner:js=\"/*! glisse (c) Kelvin Zhang, MIT. https://github.com/0kzh/glisse — vanilla build for thevenkyart, see vendor/glisse */\" --outfile=js/glisse.js"
   }
 }
